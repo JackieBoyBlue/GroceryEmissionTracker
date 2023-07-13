@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<section id="login" class="container">
+    <form class="card bg-white" method="post" action="{{ url_for('login') }}">
+        <div class="card-header text-center bg-white">
+            <h1 class="h1 fw-bold">Login</h1>
+            <p>Create an account to start tracking your CO<sub>2</sub>e</p>
+        </div>
+        <div class="card-body">
+            {{ login_form.hidden_tag() }}
+            <!-- Email -->
+            {{ login_form.email(placeholder='Email', class="form-control") }}
+            {% if login_form.email.errors %}
+                <ul class=errors>
+                {% for error in login_form.email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Password -->
+            {{ login_form.password(placeholder="Password", class="form-control") }}
+            {% if login_form.password.errors %}
+                <ul class=errors>
+                {% for error in login_form.password.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Submit button -->
+            <div class="flex-container text-center">
+                {{ login_form.submit(class="btn btn-primary") }}
+            </div>
+            <!-- Sign up -->
+            <div class="flex-container text-end text-small">
+                <a href="{{ url_for('register') }}">Don't have an account? Sign up here.</a>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock content %}

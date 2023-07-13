@@ -1,0 +1,31 @@
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@mixin reset-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    &:visited {
+        color: inherit;
+    }
+}
+
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin hover-grow {
+    transition: transform .2s;
+    &:hover {
+        transform: scale(1.08);
+    }
+}
+
+@mixin box-shadow {
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}

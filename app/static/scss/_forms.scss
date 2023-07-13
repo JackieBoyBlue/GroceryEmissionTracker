@@ -1,0 +1,25 @@
+form {
+    .card-header {
+        padding-top: 1rem;
+    }
+
+    .form-control {
+        margin: 1rem 0px;
+    }
+
+    .errors {
+        @include reset-list;
+        margin: 1rem 0 1rem 1rem;
+        color: red;
+    }
+
+    .btn {
+        margin-bottom: 1rem;
+        width: 100%;
+        color: $light;
+    }
+}
+
+#register, #login {
+    max-width: 500px;
+}

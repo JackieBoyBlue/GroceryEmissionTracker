@@ -1,0 +1,45 @@
+nav {
+    
+    font-size: clamp(1rem, 10vw, 1.8rem);
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+    .navbar-toggler-icon {
+        @include center;
+        padding: 0px;
+    }
+
+    a {
+
+        @include reset-link;
+        font-weight: 200;
+        transition: text-decoration-color 300ms;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        
+        &:hover {
+            text-decoration-color: $primary;
+        }
+        
+        li {
+            
+            padding: 20px 0px;
+            border-radius: $radius-big;
+            transition: background-color 300ms;
+            
+            &:hover {
+                background-color: transparentize($secondary, 0.66);
+            }
+        }
+
+        li div {
+            transition: 0.2s;
+        }
+        
+        &:hover li div {
+            transform: scale(1.08);
+        }
+    }
+}

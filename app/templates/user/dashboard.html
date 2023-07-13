@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<section id="dashboard" class="m-3 mt-0">
+    <section id="tracking" class="card container bg-white p-5 mb-3">
+        <small class="small text-muted position-absolute top-0 end-0 pt-3 pe-5">Logged in as {{ name }}</small>
+        <table class="table table-borderless">
+            <tr class="row">
+                <td class="col" id="recent">
+                    <span class="big-number">58</span><span class="big-unit">kg</span>
+                </td>
+            </tr>
+            <tr class="row">
+                <td class="col" id="average">
+                    <span class="mid-number">71</span><span class="mid-unit">kg</span>
+                </td>
+                <td class="col" id="all-time">
+                    <span class="mid-number">905</span><span class="mid-unit">kg</span>
+                </td>
+            </tr>
+        </table>
+    </section>
+    <section id="feed" class="card container p-4 bg-white mb-3" hx-get="/transaction_feed" hx-trigger="load once"></section>
+</section>
+{% endblock content %}

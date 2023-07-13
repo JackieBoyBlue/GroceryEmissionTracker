@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- External assets -->
+    <script src="https://kit.fontawesome.com/42bd0b27ba.js" crossorigin="anonymous" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Internal assets -->
+    {% assets "css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+    {% assets "js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}" defer></script>
+    {% endassets %}
+    {% if title %}
+        <title>carbonGyroscope | {{ title }}</title>
+    {% else %}
+        <title>carbonGyroscope</title>
+    {% endif %}
+</head>
+<body>
+    <nav>
+        {% include 'base/nav.html' %}
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+</body>
+</html>

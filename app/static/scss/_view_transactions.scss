@@ -1,0 +1,18 @@
+#transactions {
+
+    #transactionTable_length > label,
+    #transactionTable_filter > label {
+        padding: 10px 0px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        select {
+            width: fit-content;
+        }
+
+        select, input {
+            margin: 0px 5px;
+        }
+    }
+}

@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<section id="register" class="container my-5">
+    <form class="card bg-white" method="post" action="{{ url_for('register') }}">
+        <div class="card-header text-center bg-white">
+            <h1 class="h1 fw-normal">Register</h1>
+            <p>Create an account to start tracking your CO<sub>2</sub>e</p>
+        </div>
+        <div class="card-body">
+            {{ registration_form.hidden_tag() }}
+            <!-- Name -->
+            {{ registration_form.name(placeholder='Name', autofocus=True, class="form-control") }}
+            {% if registration_form.name.errors %}
+                <ul class=errors>
+                {% for error in registration_form.name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Email -->
+            {{ registration_form.email(placeholder='Email', class="form-control") }}
+            {% if registration_form.email.errors %}
+                <ul class=errors>
+                {% for error in registration_form.email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Password -->
+            {{ registration_form.password(placeholder="Password", class="form-control") }}
+            {% if registration_form.password.errors %}
+                <ul class=errors>
+                {% for error in registration_form.password.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Confirm password -->
+            {{ registration_form.confirm(placeholder="Repeat password", class="form-control") }}
+            {% if registration_form.confirm.errors %}
+                <ul class=errors>
+                {% for error in registration_form.confirm.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <!-- Submit button -->
+            <div class="flex-container text-center">
+                {{ registration_form.submit(class="btn btn-primary") }}
+            </div>
+            <!-- Login -->
+            <div class="flex-container text-end text-small">
+                <a class="muted-link" href="{{ url_for('login') }}">Already have an account? Click to login.</a>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock content %}
