@@ -18,9 +18,13 @@ All admin fields default to "admin".
 ## Installation with pipenv
 
 - Make sure you have pipenv installed:
-`pip install pipenv --user`
+```
+pip install pipenv --user
+```
 
 - Then run the following in the app's base directory:
-`pipenv install`
-`pipenv shell`
-`python wsgi.py`
+```
+pipenv install
+pipenv shell
+python wsgi.py
+```
