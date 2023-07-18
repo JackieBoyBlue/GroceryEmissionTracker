@@ -22,7 +22,7 @@ All admin fields default to "admin".
 pip install pipenv --user
 ```
 
-- Then run the following in the app's base directory:
+- Then run the following in the base directory:
 ```
 pipenv install
 pipenv shell
