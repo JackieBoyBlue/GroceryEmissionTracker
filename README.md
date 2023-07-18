@@ -11,6 +11,8 @@ You may also wish to set:
 - ADMIN_EMAIL
 - ADMIN_PASSWORD
 
+All admin fields default to "admin".
+
 ---
 
 ## Installation with pipenv
