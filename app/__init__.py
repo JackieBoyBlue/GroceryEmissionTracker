@@ -77,3 +77,19 @@ with app.app_context():
         )
         db.session.add(user)
         db.session.commit()
+    
+    # Create category emission factors if none exist
+    if estimate.Category.query.count() == 0:
+        from .datasets import category_emission_factors
+        from .data_processing.embedding import Embedding
+        embedder = Embedding()
+        for category, factor in category_emission_factors.category_emission_factors.items():
+            embedded = embedder(category)
+
+            category = estimate.Category(
+                name=category,
+                factor=factor,
+                vector=embedded
+            )
+            db.session.add(category)
+        db.session.commit()

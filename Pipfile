@@ -17,6 +17,8 @@ libsass = "*"
 jsmin = "*"
 authlib = "*"
 requests = "*"
+torch = "*"
+transformers = "*"
 
 [dev-packages]
 

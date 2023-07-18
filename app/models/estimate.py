@@ -1,5 +1,5 @@
 from .. import db
-from sqlalchemy import Column, ForeignKey, String, Integer, DateTime
+from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, PickleType
 from uuid import uuid4
 from .user import Transaction, Merchant
 from ..datasets.mcc_codes import mcc_codes
@@ -7,6 +7,13 @@ from ..datasets.mcc_codes import mcc_codes
 
 
 methods = ['item', 'category', 'merchant', 'mcc']
+
+class Category(db.Model):
+    __tablename__ = 'category'
+
+    name = Column(String, primary_key=True)
+    factor = Column(Integer, nullable=False)
+    vector = Column(PickleType, nullable=False)
 
 class Estimate(db.Model):
     """Estimate model for calculating the CO2e of a transaction."""
