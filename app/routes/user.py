@@ -1,9 +1,9 @@
 from .. import app, db
-from flask import render_template, redirect
+from flask import render_template, redirect, jsonify
 from datetime import datetime
 from flask_login import current_user
 from .starling import Starling
-from ..models.user import load_user, Transaction
+from ..models.user import load_user, Transaction, Receipt
 from ..models.estimate import Estimate
 from werkzeug.exceptions import HTTPException
 
@@ -56,13 +56,36 @@ def transaction_feed():
 
 @app.route('/get-co2e-estimate/<transaction_id>')
 def get_co2e_estimate(transaction_id):
-    """Gets the CO2e estimate for a transaction via htmx."""
+    """Gets the CO2e estimate for a transaction."""
 
     transaction = Transaction.query.get(transaction_id)
     if transaction:
         estimate = Estimate(transaction)
         estimate.get_estimate()
 
-        return f'{transaction.id}'
+        return jsonify({'co2e': estimate.co2e, 'method': estimate.method})
+
+    else: return 'not found', 404
+
+
+@app.route('/add-receipt/<transaction_id>')
+def add_receipt(transaction_id):
+    """Adds a receipt to a transaction."""
+
+    transaction = Transaction.query.get(transaction_id)
+    if transaction:
+        if not transaction.receipt_id:
+            receipt = Receipt(
+                transaction_id=transaction_id,
+                items={}
+            )
+            db.session.add(receipt)
+            db.session.commit()
+
+            return jsonify({'receipt_id': receipt.id})
+        
+        else:
+            return 'receipt already exists', 400
+
 
     else: return 'not found', 404

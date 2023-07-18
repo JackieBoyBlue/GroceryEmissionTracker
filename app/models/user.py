@@ -1,7 +1,7 @@
 from .. import db, login_manager
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import Column, ForeignKey, String, Boolean, Integer, DateTime
+from sqlalchemy import Column, ForeignKey, String, Boolean, Integer, DateTime, PickleType
 from uuid import uuid4
 
 
@@ -82,8 +82,8 @@ class Receipt(db.Model):
     __tablename__ = 'receipt'
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid4()))
-    transaction_id = Column(String(36), ForeignKey("transaction.id"), nullable=False)
-    items = Column(String, nullable=False)
+    transaction_id = Column(String(36), ForeignKey("transaction.id"), nullable=False, unique=True)
+    items = Column(PickleType, nullable=False)
     
 
 

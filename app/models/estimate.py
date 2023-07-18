@@ -66,8 +66,8 @@ class Estimate(db.Model):
 
             # If that fails, try to look up category specific CO2e.
             except:
-                if False:
-                    pass
+                if True:
+                    print('test')
                 else:
                     raise Exception('Partial or no category specific CO2e data found.')
 
@@ -84,7 +84,7 @@ class Estimate(db.Model):
             # If that fails, try to base an estimate on the merchant's MCC.
             except:
                 mcc_code = mcc_codes[str(Merchant.query.get(self.transaction.merchant_id).mcc)]
-                print(mcc_code)
+
                 if bool:
                     pass
                 else:
