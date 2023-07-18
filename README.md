@@ -1,5 +1,5 @@
 
-# carbonGyroscope
+# GroceryEmissionTracker
 
 ### Before running, please ensure that the following environment variables are set:
 - CLIENT_ID
