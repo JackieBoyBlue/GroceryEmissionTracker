@@ -67,7 +67,7 @@ class Transaction(db.Model):
     merchant_id = Column(Integer, ForeignKey("merchant.id"))
     merchant_mcc = Column(Integer, nullable=True)
 
-    receipt_id = db.relationship('Receipt', backref='estimate.id', lazy='select')
+    receipt_id = db.relationship('Receipt', backref='receipt.id', lazy='select')
 
     user_id = Column(String(36), ForeignKey("user.id"))
     feed_log_id = Column(String(36), ForeignKey("feed_log.id"))
