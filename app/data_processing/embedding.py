@@ -68,15 +68,13 @@ class Embedding:
 
         return compare_this[0].dot(to_this[0]).item()
 
+    @staticmethod
+    def get_vector(tensor: Tensor) -> list:
+        """Returns the vector from a tensor."""
 
+        if not isinstance(tensor, Tensor): raise TypeError('tensor must be a Tensor')
 
-
-def get_vector(tensor: Tensor) -> list:
-    """Returns the vector from a tensor."""
-
-    if not isinstance(tensor, Tensor): raise TypeError('tensor must be a Tensor')
-
-    return tensor[0].tolist()
+        return tensor[0].tolist()
 
 
 
@@ -85,9 +83,11 @@ def get_vector(tensor: Tensor) -> list:
 # embedder = Embedding()
 
 # left = embedder('Increase investment in infrastructure and public services.')
+# left2 = embedder('Revoke the 2 child benefit cap.')
 # right = embedder('Reduce the tax burdon on wealthy individuals.')
 
 # print(Embedding.get_vector(left))
 # print((left[0].tolist()))
 
+# print(Embedding.get_score(left, left2))
 # print(Embedding.get_score(left, right))
