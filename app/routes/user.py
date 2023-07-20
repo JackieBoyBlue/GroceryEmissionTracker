@@ -1,5 +1,5 @@
 from .. import app, db
-from flask import render_template, redirect, jsonify
+from flask import render_template, redirect, jsonify, url_for
 from datetime import datetime
 from flask_login import current_user
 from .starling import Starling
@@ -24,9 +24,9 @@ def home():
     """Redirect to the dashboard if the user is logged in, otherwise redirect to the login page."""
 
     if current_user.is_authenticated:
-        return redirect('/dashboard')
+        return redirect(url_for('dashboard'))
     else:
-        return redirect('/login')
+        return redirect(url_for('login'))
 
 
 @app.route('/dashboard/')
@@ -37,7 +37,7 @@ def dashboard():
     
     # If get_name fails, redirect to the Starling page to get a new access token.
     name = Starling.get_name()
-    if name == None: return redirect('/starling')
+    if name == None: return redirect(url_for('starling'))
 
     Starling.get_feed() # Update the database with the latest transactions.
     
