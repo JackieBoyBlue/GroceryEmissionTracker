@@ -1,5 +1,5 @@
 from .. import app, db
-from flask import session, url_for
+from flask import session, url_for, redirect
 from flask_login import current_user, login_required
 from authlib.integrations.requests_client import OAuth2Session
 from flask import make_response, redirect, request
@@ -17,6 +17,15 @@ auth_uri = 'https://oauth-sandbox.starlingbank.com'
 api_uri = 'https://api-sandbox.starlingbank.com'
 user_agent = 'GroceryEmissionTracker|SmithJJ7@cardiff.ac.uk|FlaskApp|1.0'
 acceptable_categories = ['GROCERIES', 'EATING_OUT']
+
+
+
+@app.before_request
+def check_authorized():
+    """Checks that the user is authorised with Starling and that some basic account info is available."""
+
+    if 'access_token' not in session: return redirect(url_for('get_access_token'))
+    if 'account_uid' not in session or 'default_category' not in session: Starling.get_account_info()
 
 
 
