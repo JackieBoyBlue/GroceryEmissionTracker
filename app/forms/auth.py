@@ -11,6 +11,7 @@ password_regex_explain = 'Minimum eight characters; at least one letter, one num
 
 class RegistrationForm(FlaskForm):
     """A form used for registering a new user."""
+    
     name = StringField('Name', validators=[InputRequired()])
     email = EmailField('Email', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired(), Regexp(password_regex, message=password_regex_explain)])
@@ -24,11 +25,12 @@ class RegistrationForm(FlaskForm):
 
     def validate_password(self, password):
         if len(password.data) > 50:
-            raise ValidationError("Arer you sure you'll remember such a long password? Please use 50 or fewer characters..")
+            raise ValidationError("Are you sure you'll remember such a long password? Please use 50 or fewer characters.")
 
 
 class LoginForm(FlaskForm):
     """Used to let the user log in."""
+    
     email = StringField('Email', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     remember_me = BooleanField('Remember me')
