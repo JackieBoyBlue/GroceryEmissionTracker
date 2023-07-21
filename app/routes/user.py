@@ -1,12 +1,14 @@
 from .. import app, db
-from flask import render_template, redirect, jsonify, url_for
+from flask import render_template, redirect, jsonify, url_for, send_file, request
 from datetime import datetime
 from flask_login import current_user
 from .starling import Starling
 from ..models.user import load_user, Transaction, Receipt
 from ..models.estimate import Estimate
 from ..forms.user import ReceiptForm
+from werkzeug.utils import secure_filename
 from werkzeug.exceptions import HTTPException
+from ..models.asprise import Asprise
 
 
 
@@ -93,3 +95,23 @@ def add_receipt(transaction_id):
 
 
     else: return 'not found', 404
+
+
+@app.route('/post-receipt/<transaction_id>', methods=['POST'])
+def post_receipt(transaction_id):
+
+    if 'file' not in request.files:
+        return 'no file', 400
+    
+    img = request.files['file']
+    filename = img.filename
+
+    # Asprise supports JPEG, PNG, TIFF, PDF
+    if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.tiff') or filename.endswith('.pdf'):
+        r = open('asprise-response.json', 'r').read()
+        items = Asprise.extract_items_from_response(r)
+        receipt_form = ReceiptForm()
+        return render_template('user/auto-receipt_form.html', receipt_form=receipt_form, items=items, transaction_id=transaction_id), 200
+    
+    else:
+        return 'invalid file type', 400

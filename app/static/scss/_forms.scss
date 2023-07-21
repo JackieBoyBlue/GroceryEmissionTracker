@@ -2,17 +2,13 @@ form {
     .card-header {
         padding-top: 1rem;
     }
-
-    .form-control {
-        margin: 1rem 0px;
-    }
-
+    
     .errors {
         @include reset-list;
         margin: 1rem 0 1rem 1rem;
         color: red;
     }
-
+    
     .btn {
         margin-bottom: 1rem;
         width: 100%;
@@ -22,4 +18,28 @@ form {
 
 #register, #login {
     max-width: 500px;
+    
+    .form-control {
+        margin: 1rem 0px;
+    }
+}
+
+#receipt-form {
+    .card-header {
+        padding-top: 1rem;
+    }
+
+    max-width: 800px;
+
+    .round {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+
+        @include center;
+    }
+
+    progress {
+        width: 100%;
+    }
 }

@@ -1,0 +1,23 @@
+<form id="items-form" method="post" action="">
+    {{ receipt_form.hidden_tag() }}
+    {{ receipt_form.transaction_id(value=transaction_id, class="form-control") }}
+    <div id="extra-inputs">
+        {% for item in items.items() %}
+        <div class="input-group my-3">
+            {{ receipt_form.item(id="i" + loop.index|string, class="form-control", placeholder="Item", required=True, value=item[0]) }}
+            <span id="label1" for="{{ 'p' + loop.index|string }}" class="input-group-text">£</span>
+            {{ receipt_form.price(id="p" + loop.index|string, class="form-control amount", placeholder="0.00", style="max-width: 100px;", required=True, type="number", min=0.00, step=0.01, value=item[1]) }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="total" class="d-flex flex-row justify-content-end">
+        <span class="fs-5">Total:&nbsp;</span>
+        <span class="fs-5" id="total-amount">£0.00</span>
+    </div>
+    <div id="addRemove" class="d-flex flex-row justify-content-center">
+        <button id="add-item-input" type="button" class="btn btn-primary round m-2">+</button>
+        <button id="remove-item-input" type="button" class="btn btn-secondary round m-2">-</button>
+    </div>
+    {{ receipt_form.submit(class="btn btn-primary form-control my-3") }}
+</form>

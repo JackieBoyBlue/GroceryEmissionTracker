@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='js/receiptForm.js') }}" defer></script>
+
+<section id="receipt-form" class="container">
+    <div class="card bg-white">
+        <div class="card-header text-center bg-white">
+            <h1 class="h1 fw-bold">Add Receipt</h1>
+        </div>
+        <div class="card-body">
+            
+            <form class="mb-5" id='upload-receipt' hx-encoding='multipart/form-data' hx-post='/post-receipt/{{ transaction_id }}' hx-target="next form">
+                {{ receipt_form.hidden_tag() }}
+                <div class="mb-3">
+                    <label for="receiptImg" class="form-label"><b>Upload a receipt</b><br>
+                        Supported file types: .jpg, .jpeg, .png, .pdf, .tiff<br>
+                        (Experimental: please check your items before submitting)</label>
+                    <div class="input-group">
+                        <input class="form-control" type="file" name="file" id="receiptImg" aria-describedby="upload">
+                        <button class="input-group-text text-white btn-secondary" id="upload">Get items</button>
+                    </div>
+                </div>
+            </form>
+            <form id="items-form" method="post" action="">
+                {{ receipt_form.hidden_tag() }}
+                {{ receipt_form.transaction_id(value=transaction_id, class="form-control") }}
+                <div class="input-group my-3">
+                    {{ receipt_form.item(id="i1", class="form-control", placeholder="Item", required=True) }}
+                    <span id="label1" for="p1" class="input-group-text">£</span>
+                    {{ receipt_form.price(id="p1", class="form-control amount", placeholder="0.00", style="max-width: 100px;", required=True, type="number", min=0.00, step=0.01) }}
+                </div>
+    
+                <div id="extra-inputs"></div>
+    
+                <div id="total" class="d-flex flex-row justify-content-end">
+                    <span class="fs-5">Total:&nbsp;</span>
+                    <span class="fs-5" id="total-amount">£0.00</span>
+                </div>
+                <div id="addRemove" class="d-flex flex-row justify-content-center">
+                    <button id="add-item-input" type="button" class="btn btn-primary round m-2">+</button>
+                    <button id="remove-item-input" type="button" class="btn btn-secondary round m-2">-</button>
+                </div>
+                {{ receipt_form.submit(class="btn btn-primary form-control my-3") }}
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

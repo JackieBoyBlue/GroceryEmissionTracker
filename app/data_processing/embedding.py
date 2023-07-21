@@ -59,7 +59,7 @@ class Embedding:
     
     # end of referenced code
 
-
+    @staticmethod
     def get_score(compare_this: Tensor, to_this: Tensor) -> float:
         """Returns the cosine similarity between two tensors."""
 
@@ -80,14 +80,11 @@ class Embedding:
 
 
 # # Example usage
-# embedder = Embedding()
+embedder = Embedding()
 
-# left = embedder('Increase investment in infrastructure and public services.')
-# left2 = embedder('Revoke the 2 child benefit cap.')
-# right = embedder('Reduce the tax burdon on wealthy individuals.')
+left = embedder('Increase investment in infrastructure and public services.')
+right = embedder('Reduce the tax burdon on wealthy individuals.')
 
 # print(Embedding.get_vector(left))
-# print((left[0].tolist()))
 
-# print(Embedding.get_score(left, left2))
 # print(Embedding.get_score(left, right))

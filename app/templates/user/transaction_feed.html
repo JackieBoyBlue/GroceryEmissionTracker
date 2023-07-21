@@ -19,7 +19,7 @@
             {% endif %}
         </span>
     </div>
-    {% if not transaction.receipt %}
+    {% if not transaction.receipt_id %}
         <a href="{{ url_for('add_receipt', transaction_id=transaction.id) }}" class="mb-0 fs-5 text-center estimate-link">add receipt</a>
     {% endif %}
 </div>
