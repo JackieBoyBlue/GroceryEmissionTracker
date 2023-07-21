@@ -5,6 +5,7 @@ from flask_login import current_user
 from .starling import Starling
 from ..models.user import load_user, Transaction, Receipt
 from ..models.estimate import Estimate
+from ..forms.user import ReceiptForm
 from werkzeug.exceptions import HTTPException
 
 
@@ -37,7 +38,7 @@ def dashboard():
     
     # If get_name fails, redirect to the Starling page to get a new access token.
     name = Starling.get_name()
-    if name == None: return redirect(url_for('starling'))
+    if name == None: return redirect(url_for('get_access_token'))
 
     Starling.get_feed() # Update the database with the latest transactions.
     
@@ -72,17 +73,20 @@ def get_co2e_estimate(transaction_id):
 def add_receipt(transaction_id):
     """Adds a receipt to a transaction."""
 
+    receipt_form = ReceiptForm()
+
+    # receipt = Receipt(
+    #     transaction_id=transaction_id,
+    #     items={}
+    # )
+    # db.session.add(receipt)
+    # db.session.commit()
+
     transaction = Transaction.query.get(transaction_id)
     if transaction:
         if not transaction.receipt_id:
-            receipt = Receipt(
-                transaction_id=transaction_id,
-                items={}
-            )
-            db.session.add(receipt)
-            db.session.commit()
 
-            return jsonify({'receipt_id': receipt.id})
+            return render_template('user/receipt_form.html', receipt_form=receipt_form, transaction_id=transaction_id)
         
         else:
             return 'receipt already exists', 400
