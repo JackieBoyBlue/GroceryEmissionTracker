@@ -21,10 +21,10 @@ class Asprise:
         },  \
         files = {"file": img})
 
-        return r.json()
+        return r.text
     
 
-    def extract_items_from_response(response: str):
+    def extract_items_from_response(response: str) -> dict:
         """Extracts the items from the response from the Asprise API."""
 
         if not isinstance(response, str): raise TypeError('response must be a string')
