@@ -11,7 +11,7 @@ class ReceiptForm(FlaskForm):
     
     id = HiddenField(default=str(uuid4()))
     transaction_id = HiddenField(InputRequired())
-    item = StringField('Item', validators=[InputRequired()])
-    price = StringField('Price', validators=[InputRequired()])
+    item = StringField('Item', validators=[InputRequired()], name='i1')
+    price = StringField('Price', validators=[InputRequired()], name='p1')
 
     submit = SubmitField('Save receipt')

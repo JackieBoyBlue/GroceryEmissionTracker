@@ -71,11 +71,17 @@ def get_co2e_estimate(transaction_id):
     else: return 'not found', 404
 
 
-@app.route('/add-receipt/<transaction_id>')
+@app.route('/add-receipt/<transaction_id>', methods=['GET', 'POST'])
 def add_receipt(transaction_id):
     """Adds a receipt to a transaction."""
 
     receipt_form = ReceiptForm()
+
+    if receipt_form.validate_on_submit():
+        print(request.form)
+        print(request.form['id'])
+        print(request.form['transaction_id'])
+        print(request.form['transaction_id'])
 
     # receipt = Receipt(
     #     transaction_id=transaction_id,
@@ -99,6 +105,7 @@ def add_receipt(transaction_id):
 
 @app.route('/post-receipt/<transaction_id>', methods=['POST'])
 def post_receipt(transaction_id):
+    """Receieves a receipt, sends it to Asprise, and returns a html form containing the items to htmx."""
 
     if 'file' not in request.files:
         return 'no file', 400
