@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms.validators import InputRequired, Regexp, EqualTo, ValidationError
+from wtforms.validators import InputRequired
 from wtforms import StringField, SubmitField, HiddenField
-from ..models.user import Receipt
 from uuid import uuid4
 
 
