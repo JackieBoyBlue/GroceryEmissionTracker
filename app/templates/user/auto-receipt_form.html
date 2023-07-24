@@ -1,4 +1,5 @@
-{{ receipt_form.hidden_tag() }}
+{{ receipt_form.csrf_token() }}
+{{ receipt_form.id() }}
 {{ receipt_form.transaction_id(value=transaction_id, class="form-control") }}
 <div id="extra-inputs">
     {% for item in items.items() %}

@@ -23,7 +23,8 @@
                 </div>
             </form>
             <form id="items-form" method="post" action="">
-                {{ receipt_form.hidden_tag() }}
+                {{ receipt_form.csrf_token() }}
+                {{ receipt_form.id() }}
                 {{ receipt_form.transaction_id(value=transaction_id, class="form-control") }}
                 <div class="input-group my-3">
                     {{ receipt_form.item(id="i1", class="form-control", placeholder="Item", required=True) }}

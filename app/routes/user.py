@@ -78,17 +78,19 @@ def add_receipt(transaction_id):
     receipt_form = ReceiptForm()
 
     if receipt_form.validate_on_submit():
-        print(request.form)
-        print(request.form['id'])
-        print(request.form['transaction_id'])
-        print(request.form['transaction_id'])
+        items_dict = {}
+        for item in request.form.items():
+            if item[0].startswith('i') and item[0][-1] != 'd':
+                items_dict[item[1]] = request.form['p' + item[0][1:]]
+        
 
-    # receipt = Receipt(
-    #     transaction_id=transaction_id,
-    #     items={}
-    # )
-    # db.session.add(receipt)
-    # db.session.commit()
+        receipt = Receipt(
+            transaction_id=transaction_id,
+            items=items_dict
+        )
+        db.session.add(receipt)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
 
     transaction = Transaction.query.get(transaction_id)
     if transaction:
@@ -115,7 +117,9 @@ def post_receipt(transaction_id):
 
     # Asprise supports JPEG, PNG, TIFF, PDF
     if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.tiff') or filename.endswith('.pdf'):
-        r = open('asprise-response.json', 'r').read()
+
+        r = open('asprise-response.json', 'r').read() # Use to avoid maxing out the free limit on Asprise API calls in testing.
+        # r = Asprise.get_receipt_data(img.read(), transaction_id)
         items = Asprise.extract_items_from_response(r)
         receipt_form = ReceiptForm()
         return render_template('user/auto-receipt_form.html', receipt_form=receipt_form, items=items, transaction_id=transaction_id), 200
