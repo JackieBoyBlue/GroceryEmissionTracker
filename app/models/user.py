@@ -67,13 +67,13 @@ class Transaction(db.Model):
     merchant_id = Column(Integer, ForeignKey("merchant.id"))
     merchant_mcc = Column(Integer, nullable=True)
 
-    receipt_id = db.relationship('Receipt', backref='receipt.id', lazy='select')
+    receipt = db.relationship('Receipt', backref='receipt', lazy='dynamic', cascade='all, delete')
 
     user_id = Column(String(36), ForeignKey("user.id"))
     feed_log_id = Column(String(36), ForeignKey("feed_log.id"))
 
     co2e = Column(Integer, nullable=True)
-    estimate_id = db.relationship('Estimate', backref='estimate.id', lazy='select')
+    estimate = db.relationship('Estimate', backref='estimate', lazy='select')
 
 
 
