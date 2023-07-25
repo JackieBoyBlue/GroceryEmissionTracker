@@ -1,5 +1,5 @@
 from .. import app, db
-from flask import session, url_for, redirect
+from flask import session, url_for, redirect, jsonify
 from flask_login import current_user, login_required
 from authlib.integrations.requests_client import OAuth2Session
 from flask import make_response, redirect, request
@@ -16,7 +16,7 @@ client_secret = os.environ.get('CLIENT_SECRET')
 auth_uri = 'https://oauth-sandbox.starlingbank.com'
 api_uri = 'https://api-sandbox.starlingbank.com'
 user_agent = 'GroceryEmissionTracker|SmithJJ7@cardiff.ac.uk|FlaskApp|1.0'
-acceptable_categories = ['GROCERIES', 'EATING_OUT']
+acceptable_categories = ['GROCERIES', 'EATING_OUT', 'GENERAL']
 
 
 
@@ -24,8 +24,10 @@ acceptable_categories = ['GROCERIES', 'EATING_OUT']
 def check_authorized():
     """Checks that the user is authorised with Starling and that some basic account info is available."""
 
-    if 'access_token' not in session: return redirect(url_for('get_access_token'))
-    if 'account_uid' not in session or 'default_category' not in session: Starling.get_account_info()
+    if 'access_token' not in session:return redirect(url_for('get_access_token'))
+    if 'account_uid' not in session or 'default_category' not in session:
+        r = Starling.get_account_info()
+        if 'error' in r and r['error'] == 'invalid_token': return redirect(url_for('get_access_token'))
 
 
 
@@ -55,6 +57,8 @@ class Starling:
 
         session['account_uid'] = dict['accounts'][0]['accountUid']
         session['default_category'] = dict['accounts'][0]['defaultCategory']
+
+        return dict
 
 
     def logout():
@@ -93,6 +97,7 @@ class Starling:
         feed_id = str(uuid4())
         count = 0
 
+        # if 'feedItems' not in dict: return None
         for item in dict['feedItems']:
             item_id = item['feedItemUid']
             if item['spendingCategory'] in acceptable_categories and Transaction.query.get(item_id) == None:
