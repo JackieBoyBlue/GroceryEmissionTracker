@@ -6,7 +6,7 @@ category_emission_factors = {
     'Vegetable and animal oils and fats': 0.001405303,
     'Dairy products': 0.000766208,
     'Grain mill products; starches and starch products': 0.001323153,
-    'Bread; rusks and biscuits; pastry goods and cakes ': 0.000238159,
+    'Bread; rusks and biscuits; pastry goods and cakes': 0.000238159,
     'Cocoa; chocolate and sugar confectionery': 0.000226209,
     'Other food products (incl. sugar)': 0.000305443,
     'Non-alcoholic beverages': 0.000325755,
