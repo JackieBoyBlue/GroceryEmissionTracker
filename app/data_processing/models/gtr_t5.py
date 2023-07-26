@@ -2,8 +2,8 @@ from sentence_transformers import SentenceTransformer
 from _interface import EmbeddingModelInterface
 
 
-class SentenceT5(EmbeddingModelInterface):
-    """SentenceT5 class for comparing texts using the T5 model."""
+class GTR_T5(EmbeddingModelInterface):
+    """GTR_T5 class for comparing texts using the T5 model."""
     versions = ('base', 'large', 'xl', 'xxl')
 
     def __init__(self, version: str = 'xxl') -> None:
@@ -13,7 +13,7 @@ class SentenceT5(EmbeddingModelInterface):
         if version not in self.versions: raise ValueError(f'version must be one of {self.versions}')
 
         print('Initialising SentenceT5 class...')
-        self.model = SentenceTransformer(f'sentence-transformers/sentence-t5-{version}')
+        self.model = SentenceTransformer(f'sentence-transformers/gtr-t5-{version}')
         print('Loaded model')
 
 
@@ -44,8 +44,8 @@ if __name__ == '__main__':
     category_11 = 'Non-alcoholic beverages'
     category_12 = 'Alcoholic beverages'
     
-    sen_T5 = SentenceT5()
-    embeddings = sen_T5.get_embeddings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
-    print(embeddings)
-    # similarities = senT5.get_category_strings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
-    # print(similarities)
+    gtr_t5 = GTR_T5()
+    # embeddings = gtr_t5.get_embeddings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
+    # print(embeddings)
+    similarities = gtr_t5.get_category_strings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
+    print(similarities)

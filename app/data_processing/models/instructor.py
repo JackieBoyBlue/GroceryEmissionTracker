@@ -52,3 +52,4 @@ if __name__ == '__main__':
     # print(embeddings)
     similarities = instructor.get_category_strings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
     print(similarities)
+    
