@@ -3,7 +3,8 @@ from flask import session, url_for, redirect, jsonify
 from flask_login import current_user, login_required
 from authlib.integrations.requests_client import OAuth2Session
 from flask import make_response, redirect, request
-from ..models.user import load_user, FeedLog, Transaction, Merchant
+from ..models.user import load_user
+from ..models.transaction import FeedLog, Transaction, Merchant
 import os, requests, json
 from datetime import datetime, timedelta
 from uuid import uuid4

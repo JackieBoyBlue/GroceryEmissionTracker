@@ -4,6 +4,9 @@
 ### Before running, please ensure that the following environment variables are set:
 - CLIENT_ID
 - CLIENT_SECRET
+- MODEL
+
+Available models are: [e5, gtr_t5, instructor, sentence_t5]
 
 You may also wish to set:
 - SECRET_KEY

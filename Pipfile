@@ -19,6 +19,8 @@ authlib = "*"
 requests = "*"
 torch = "*"
 transformers = "*"
+sentence-transformers = "*"
+instructorembedding = "*"
 
 [dev-packages]
 

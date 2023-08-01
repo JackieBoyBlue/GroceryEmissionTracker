@@ -60,7 +60,7 @@ from .routes import auth, starling, user
 
 
 # Initialise Database
-from .models import user, estimate
+from .models import user, transaction, estimate
 with app.app_context():
     db.create_all()
 
@@ -80,11 +80,11 @@ with app.app_context():
     
     # Create category emission factors if none exist
     if estimate.Category.query.count() == 0:
-        from .datasets import category_emission_factors
-        from .data_processing.embedding import Embedding
-        embedder = Embedding()
-        for category, factor in category_emission_factors.category_emission_factors.items():
-            embedded = embedder(category)
+        print('Generating category emission factors...')
+        from .datasets.category_emission_factors import category_emission_factors
+        from .data_processing.models.embedding_model import model
+        for category, factor in category_emission_factors.items():
+            embedded = model.get_embeddings(category)[0]
 
             category = estimate.Category(
                 name=category,
@@ -92,4 +92,7 @@ with app.app_context():
                 vector=embedded
             )
             db.session.add(category)
+            print(f'{category.name} added to database.')
         db.session.commit()
+        print('Finished generating category emission factors.')
+

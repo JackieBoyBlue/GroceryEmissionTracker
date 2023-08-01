@@ -1,5 +1,8 @@
 from InstructorEmbedding import INSTRUCTOR
-from _interface import EmbeddingModelInterface
+if __name__ == '__main__':
+    from _interface import EmbeddingModelInterface
+else:
+    from ._interface import EmbeddingModelInterface
 
 
 class Instructor(EmbeddingModelInterface):

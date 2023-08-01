@@ -3,10 +3,10 @@ from flask import render_template, redirect, jsonify, url_for, send_file, reques
 from datetime import datetime
 from flask_login import current_user
 from .starling import Starling
-from ..models.user import load_user, Transaction, Receipt
+from ..models.user import load_user
+from ..models.transaction import Transaction, Receipt
 from ..models.estimate import Estimate
 from ..forms.user import ReceiptForm
-from werkzeug.utils import secure_filename
 from werkzeug.exceptions import HTTPException
 from ..models.asprise import Asprise
 
@@ -38,11 +38,7 @@ def dashboard():
 
     if current_user.is_authenticated == False: return redirect('/login')
     
-    # If get_name fails, redirect to the Starling page to get a new access token.
     name = Starling.get_name()
-    if name == None: return redirect(url_for('get_access_token'))
-
-    Starling.get_feed() # Update the database with the latest transactions.
     
     return render_template('user/dashboard.html', title='Dashboard', name=name)
 
@@ -50,6 +46,8 @@ def dashboard():
 @app.route('/transaction_feed')
 def transaction_feed():
     """Feeds transactions to the dashboard via htmx."""
+
+    Starling.get_feed()
 
     user = load_user(current_user.id)
     transactions = db.paginate(user.transactions.order_by(db.desc('datetime')), per_page=6)
@@ -90,11 +88,12 @@ def add_receipt(transaction_id):
         )
         db.session.add(receipt)
         db.session.commit()
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('get_co2e_estimate', transaction_id=transaction_id))
 
     transaction = Transaction.query.get(transaction_id)
     if transaction:
-        if not transaction.receipt_id:
+        print()
+        if not transaction.receipt.first():
 
             return render_template('user/receipt_form.html', receipt_form=receipt_form, transaction_id=transaction_id)
         

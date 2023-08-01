@@ -6,7 +6,10 @@
 
 from torch import Tensor
 from transformers import AutoTokenizer, AutoModel
-from _interface import EmbeddingModelInterface
+if __name__ == '__main__':
+    from _interface import EmbeddingModelInterface
+else:
+    from ._interface import EmbeddingModelInterface
 
 
 class E5(EmbeddingModelInterface):
@@ -72,6 +75,6 @@ if __name__ == '__main__':
     
     E5 = E5()
     embeddings = E5.get_embeddings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
-    print(embeddings)
+    print(embeddings[0])
     # similarities = E5.get_category_strings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
     # print(similarities)

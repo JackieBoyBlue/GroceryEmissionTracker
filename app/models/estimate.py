@@ -1,9 +1,9 @@
 from .. import db
 from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, PickleType
 from uuid import uuid4
-from .user import Transaction, Merchant
+from .transaction import Transaction, Merchant
 from ..datasets.mcc_codes import mcc_codes
-
+from ..data_processing.models.embedding_model import model as Embedding
 
 
 methods = ['item', 'category', 'merchant', 'mcc']
@@ -52,9 +52,9 @@ class Estimate(db.Model):
         """Calculates the CO2e of the transaction. Returns a dictionary of the CO2e and the method used to calculate it."""
 
         # Prioritise receipts as they have the most detailed data.
-        if self.transaction.receipt_id:
+        if self.transaction.receipt:
 
-            items = self.transaction.receipt.items
+            items = self.transaction.receipt.first().items
             item_emissions = {}
             
             # First, try to look up item specific CO2e.
@@ -66,8 +66,24 @@ class Estimate(db.Model):
 
             # If that fails, try to look up category specific CO2e.
             except:
-                if True:
-                    print('test')
+                embedder = Embedding()
+                categories = Category.query.all()
+
+                for item in items:
+                    item_vector = embedder(item[0])
+                    
+                    best_match = None
+                    best_match_score = 0
+
+                    for category in categories:
+                        score = Embedding.get_score(item_vector, category.vector)
+                        if score > best_match_score:
+                            best_match = category
+                            best_match_score = score
+                    print(item)
+                    print(best_match)
+                    print(best_match_score)
+                if True: pass
                 else:
                     raise Exception('Partial or no category specific CO2e data found.')
 
