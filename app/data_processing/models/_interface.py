@@ -1,13 +1,16 @@
+from abc import ABC, abstractmethod
 from scipy.spatial.distance import cosine
 
-class EmbeddingModelInterface:
+class EmbeddingModelInterface(ABC):
     """Embedding model for comparing texts."""
 
     versions = ()
 
+    @abstractmethod
     def __init__(self, version: str = ''):
         pass
 
+    @abstractmethod
     def get_embeddings(self, item: str, *categories: str) -> list:
         pass
 
