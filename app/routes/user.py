@@ -1,5 +1,5 @@
 from .. import app, db
-from flask import render_template, redirect, jsonify, url_for, send_file, request
+from flask import render_template, redirect, jsonify, url_for, request
 from datetime import datetime
 from flask_login import current_user
 from .starling import Starling
@@ -92,7 +92,6 @@ def add_receipt(transaction_id):
 
     transaction = Transaction.query.get(transaction_id)
     if transaction:
-        print()
         if not transaction.receipt.first():
 
             return render_template('user/receipt_form.html', receipt_form=receipt_form, transaction_id=transaction_id)
