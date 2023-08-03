@@ -1,5 +1,5 @@
 from .. import app, db
-from flask import render_template, redirect, jsonify, url_for, request
+from flask import render_template, redirect, jsonify, url_for, request, session
 from datetime import datetime
 from flask_login import current_user
 from .starling import Starling
@@ -38,7 +38,7 @@ def dashboard():
 
     if current_user.is_authenticated == False: return redirect('/login')
     
-    name = Starling.get_name()
+    name = session['name']
     
     return render_template('user/dashboard.html', title='Dashboard', name=name)
 
