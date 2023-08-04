@@ -115,6 +115,8 @@ class Starling:
         feed_id = str(uuid4())
         count = 0
 
+        print(dict)
+
         # if 'feedItems' not in dict: return None
         for item in dict['feedItems']:
             item_id = item['feedItemUid']
@@ -134,7 +136,7 @@ class Starling:
                 item['feedItemUid'] = Transaction(
                     id=item['feedItemUid'],
                     amount_pence=item['amount']['minorUnits'],
-                    datetime=datetime.fromisoformat(item['transactionTime']),
+                    datetime=datetime.fromisoformat(item['transactionTime'][:-1]),
                     user_id=user.id,
                     feed_log_id=feed_id,
                     merchant_id=item['counterPartyUid']
