@@ -25,17 +25,27 @@ acceptable_categories = ['GROCERIES', 'EATING_OUT', 'GENERAL']
 def check_authorized():
     """Checks that the user is authorised with Starling and that some basic account info is available."""
 
-    if 'access_token' not in session: return redirect(url_for('get_access_token'))
-    else:
-        # Get name is used to check for an expired access token.
-        name = Starling.get_name()
-        if name is None: return redirect(url_for('get_access_token'))
-        else: session['name'] = name
+    if request.endpoint in app.view_functions and not hasattr(app.view_functions[request.endpoint], 'exclude_from_auth_check') and current_user.is_authenticated:
 
-        # If there is an access token the following required data should be available, but check.
-    if 'account_uid' not in session or 'default_category' not in session:
-        r = Starling.get_account_info()
-        if 'error' in r and r['error'] == 'invalid_token': return redirect(url_for('get_access_token'))
+        if 'access_token' not in session: return redirect(url_for('get_access_token'))
+        else:
+            # Get name is used to check for an expired access token.
+            name = Starling.get_name()
+            if name is None: return redirect(url_for('get_access_token'))
+            else: session['name'] = name
+
+            # If there is an access token the following required data should be available, but check.
+        if 'account_uid' not in session or 'default_category' not in session:
+            r = Starling.get_account_info()
+            if 'error' in r and r['error'] == 'invalid_token': return redirect(url_for('get_access_token'))
+
+
+def exclude_from_auth_check(func):
+    """Decorator to exclude a route from the check_authorized function."""
+
+    func.exclude_from_auth_check = True
+    return func
+    
 
 
 
@@ -162,6 +172,7 @@ class Starling:
 
 @app.route('/starling')
 @login_required
+@exclude_from_auth_check
 def get_access_token():
     """Requests an access token from Starling's API."""
 
@@ -202,6 +213,7 @@ def get_access_token():
 
 @app.route('/authorize')
 @login_required
+@exclude_from_auth_check
 def authorize():
     """Authorise Starling API connection once returned from their external OAuth login."""
 

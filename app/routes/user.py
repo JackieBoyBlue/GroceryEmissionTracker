@@ -2,7 +2,7 @@ from .. import app, db
 from flask import render_template, redirect, jsonify, url_for, request, session
 from datetime import datetime
 from flask_login import current_user
-from .starling import Starling
+from .starling import Starling, exclude_from_auth_check
 from ..models.user import load_user
 from ..models.transaction import Transaction, Receipt
 from ..models.estimate import Estimate
@@ -23,6 +23,7 @@ def flask_functions():
 
 
 @app.route('/')
+@exclude_from_auth_check
 def home():
     """Redirect to the dashboard if the user is logged in, otherwise redirect to the login page."""
 
@@ -62,7 +63,7 @@ def get_co2e_estimate(transaction_id):
     transaction = Transaction.query.get(transaction_id)
     if transaction:
         estimate = Estimate(transaction)
-        estimate.get_estimate()
+        estimate.generate_estimate()
 
         return jsonify({'co2e': estimate.co2e, 'method': estimate.method})
 

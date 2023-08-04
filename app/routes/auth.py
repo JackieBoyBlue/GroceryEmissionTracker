@@ -3,7 +3,7 @@ from ..models.user import User, load_user
 from ..forms.auth import RegistrationForm, LoginForm
 from flask_login import login_user, logout_user, current_user
 from flask import redirect, render_template, flash
-from .starling import Starling
+from .starling import Starling, exclude_from_auth_check
 
 
 
