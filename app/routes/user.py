@@ -43,26 +43,34 @@ def dashboard():
     transactions = load_user(current_user.id).transactions.all()
     all_time = 0
     last_four_weeks = 0
-    four_weeks_prior = 0
+    this_week = 0
+    week_prior = 0
 
     for transaction in transactions:
         if transaction.co2e is not None:
-            
+
             all_time += transaction.co2e
 
             if transaction.datetime > datetime.utcnow() - timedelta(days=28):
                 last_four_weeks += transaction.co2e
 
-            if transaction.datetime < datetime.utcnow() - timedelta(days=28) and transaction.datetime > datetime.utcnow() - timedelta(days=56):
-                four_weeks_prior += transaction.co2e
+            if transaction.datetime >= datetime.utcnow() - timedelta(days=7):
+                this_week += transaction.co2e
+
+            if transaction.datetime < datetime.utcnow() - timedelta(days=7) and transaction.datetime >= datetime.utcnow() - timedelta(days=14):
+                week_prior += transaction.co2e
     
     # four week change in percentage: avoid division by zero
-    if four_weeks_prior == 0 and last_four_weeks == 0: four_week_change = 0
-    elif four_weeks_prior == 0: four_week_change = 100
-    elif last_four_weeks == 0: four_week_change = -100
-    else: four_week_change = round((four_weeks_prior / four_weeks_prior) * 100, 2)
+    if week_prior == 0 and this_week == 0: week_on_week_change = 0
+    elif week_prior == 0: week_on_week_change = 100
+    elif this_week == 0: week_on_week_change = -100
+    else:
+        if week_prior > this_week:
+            week_on_week_change = round(((this_week / week_prior) - 1) * 100, 2)
+        else:
+            week_on_week_change = -round((1 - (week_prior / this_week)) * 100, 2)
 
-    return render_template('user/dashboard.html', title='Dashboard', name=name, all_time=all_time, last_four_weeks=last_four_weeks, four_week_change=four_week_change)
+    return render_template('user/dashboard.html', title='Dashboard', name=name, all_time=all_time, last_four_weeks=last_four_weeks, week_on_week_change=week_on_week_change)
 
 
 @app.route('/transaction_feed')

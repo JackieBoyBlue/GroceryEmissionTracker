@@ -4,7 +4,7 @@
 <section id="dashboard" class="m-3 mt-0">
     <section id="tracking" class="card container bg-white p-5 mb-3">
         <small class="small text-muted position-absolute top-0 end-0 pt-3 pe-5">Logged in as {{ name }}</small>
-        <table class="table table-borderless">
+        <table class="table table-borderless mb-0">
             <tr class="row">
                 <!-- last 4 weeks -->
                 <td class="col py-4" id="recent">
@@ -14,12 +14,12 @@
             <tr class="row">
                 <!-- four week change -->
                 <td class="col" id="average">
-                    {% if four_week_change > 0 %}
-                        <span class="mid-number" style="color: rgb(219, 0, 0);">+{{ four_week_change | round(3) }}%</span>
-                    {% elif four_week_change < 0 %}
-                        <span class="mid-number" style="color: rgb(0, 156, 0);">{{ four_week_change | round(3) }}%</span>
+                    {% if week_on_week_change > 0 %}
+                        <span class="mid-number" style="color: rgb(219, 0, 0);">+{{ week_on_week_change | round(3) }}%</span>
+                    {% elif week_on_week_change < 0 %}
+                        <span class="mid-number" style="color: rgb(0, 156, 0);">{{ week_on_week_change | round(3) }}%</span>
                     {% else %}
-                        <span class="mid-number">{{ four_week_change | round(3) }}%</span>
+                        <span class="mid-number">{{ week_on_week_change | round(3) }}%</span>
                     {% endif %}
                 </td>
                 <!-- all time -->

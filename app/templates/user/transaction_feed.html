@@ -18,7 +18,7 @@
                 {% if transaction.co2e == None %}
                     <a href="{{ url_for('get_co2e_estimate', transaction_id=transaction.id) }}" class="mb-0 fs-5 float-end estimate estimate-link">estimate</a>
                 {% else %}
-                    <span class="mb-0 fs-5 float-end estimate">{{ transaction.co2e }}kg</span>
+                    <span class="mb-0 fs-5 float-end estimate">{{ transaction.co2e | round(5) }}kg</span>
                 {% endif %}
             </span>
         </div>

@@ -30,6 +30,7 @@ receiptForm.addEventListener("click", (event) => {
             inputs.removeChild(inputs.lastChild);
         };
         remove();
+        tallyTotal();
     }
 });
 
