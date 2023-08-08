@@ -38,15 +38,15 @@
             }
     
             .big-number {
-                font-size: 6rem;
+                font-size: 4rem;
             }
     
             .big-unit {
-                font-size: 3rem;
+                font-size: 2rem;
             }
     
             .mid-number {
-                font-size: 4rem;
+                font-size: 3rem;
             }
     
             .mid-unit {
@@ -66,7 +66,7 @@
         }
     
         #average::before {
-            content: "4 week average";
+            content: "4 week change";
         }
     
         #all-time::before {

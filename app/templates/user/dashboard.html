@@ -6,16 +6,25 @@
         <small class="small text-muted position-absolute top-0 end-0 pt-3 pe-5">Logged in as {{ name }}</small>
         <table class="table table-borderless">
             <tr class="row">
-                <td class="col" id="recent">
-                    <span class="big-number">58</span><span class="big-unit">kg</span>
+                <!-- last 4 weeks -->
+                <td class="col py-4" id="recent">
+                    <span class="big-number">{{ last_four_weeks | round(4) }}</span><span class="big-unit">kg</span>
                 </td>
             </tr>
             <tr class="row">
+                <!-- four week change -->
                 <td class="col" id="average">
-                    <span class="mid-number">71</span><span class="mid-unit">kg</span>
+                    {% if four_week_change > 0 %}
+                        <span class="mid-number" style="color: rgb(219, 0, 0);">+{{ four_week_change | round(3) }}%</span>
+                    {% elif four_week_change < 0 %}
+                        <span class="mid-number" style="color: rgb(0, 156, 0);">{{ four_week_change | round(3) }}%</span>
+                    {% else %}
+                        <span class="mid-number">{{ four_week_change | round(3) }}%</span>
+                    {% endif %}
                 </td>
+                <!-- all time -->
                 <td class="col" id="all-time">
-                    <span class="mid-number">905</span><span class="mid-unit">kg</span>
+                    <span class="mid-number">{{ all_time | round(2) }}</span><span class="mid-unit">kg</span>
                 </td>
             </tr>
         </table>

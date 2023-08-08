@@ -1,6 +1,6 @@
 from .. import app, db
 from flask import render_template, redirect, jsonify, url_for, request, session
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_login import current_user
 from .starling import Starling, exclude_from_auth_check
 from ..models.user import load_user
@@ -40,8 +40,29 @@ def dashboard():
     if current_user.is_authenticated == False: return redirect('/login')
     
     name = session['name']
+    transactions = load_user(current_user.id).transactions.all()
+    all_time = 0
+    last_four_weeks = 0
+    four_weeks_prior = 0
+
+    for transaction in transactions:
+        if transaction.co2e is not None:
+            
+            all_time += transaction.co2e
+
+            if transaction.datetime > datetime.utcnow() - timedelta(days=28):
+                last_four_weeks += transaction.co2e
+
+            if transaction.datetime < datetime.utcnow() - timedelta(days=28) and transaction.datetime > datetime.utcnow() - timedelta(days=56):
+                four_weeks_prior += transaction.co2e
     
-    return render_template('user/dashboard.html', title='Dashboard', name=name)
+    # four week change in percentage: avoid division by zero
+    if four_weeks_prior == 0 and last_four_weeks == 0: four_week_change = 0
+    elif four_weeks_prior == 0: four_week_change = 100
+    elif last_four_weeks == 0: four_week_change = -100
+    else: four_week_change = round((four_weeks_prior / four_weeks_prior) * 100, 2)
+
+    return render_template('user/dashboard.html', title='Dashboard', name=name, all_time=all_time, last_four_weeks=last_four_weeks, four_week_change=four_week_change)
 
 
 @app.route('/transaction_feed')
