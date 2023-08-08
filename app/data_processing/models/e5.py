@@ -73,8 +73,14 @@ if __name__ == '__main__':
     category_11 = 'Non-alcoholic beverages'
     category_12 = 'Alcoholic beverages'
     
-    E5 = E5()
-    embeddings = E5.get_embeddings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
-    print(embeddings[0])
+    # E5 = E5()
+    # embeddings = E5.get_embeddings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
+    # print(embeddings)
+    # item_vector = E5.get_embeddings(item_1)[0]
+    # category_vector = E5.get_embeddings(category_1)[0]
+    # cosine = E5.get_category_from_vectors(item_vector, ('name', category_vector))
+    # print(cosine)
+    # cosine = E5.get_category_from_strings('item_vector', 'category_vector')
+    # print(cosine)
     # similarities = E5.get_category_strings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
     # print(similarities)

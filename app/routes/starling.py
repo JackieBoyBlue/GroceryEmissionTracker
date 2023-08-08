@@ -115,8 +115,6 @@ class Starling:
         feed_id = str(uuid4())
         count = 0
 
-        print(dict)
-
         # if 'feedItems' not in dict: return None
         for item in dict['feedItems']:
             item_id = item['feedItemUid']

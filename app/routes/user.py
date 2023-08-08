@@ -65,7 +65,8 @@ def get_co2e_estimate(transaction_id):
         estimate = Estimate(transaction)
         estimate.generate_estimate()
 
-        return jsonify({'co2e': estimate.co2e, 'method': estimate.method})
+        return redirect(url_for('dashboard'))
+        # return jsonify({'co2e': estimate.co2e, 'method': estimate.method})
 
     else: return 'not found', 404
 
