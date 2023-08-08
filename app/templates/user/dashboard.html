@@ -15,16 +15,16 @@
                 <!-- four week change -->
                 <td class="col" id="average">
                     {% if week_on_week_change > 0 %}
-                        <span class="mid-number" style="color: rgb(219, 0, 0);">+{{ week_on_week_change | round(3) }}%</span>
+                        <span class="mid-number" style="color: rgb(219, 0, 0);">+{{ week_on_week_change }}%</span>
                     {% elif week_on_week_change < 0 %}
-                        <span class="mid-number" style="color: rgb(0, 156, 0);">{{ week_on_week_change | round(3) }}%</span>
+                        <span class="mid-number" style="color: rgb(0, 156, 0);">{{ week_on_week_change }}%</span>
                     {% else %}
-                        <span class="mid-number">{{ week_on_week_change | round(3) }}%</span>
+                        <span class="mid-number">{{ week_on_week_change }}%</span>
                     {% endif %}
                 </td>
                 <!-- all time -->
                 <td class="col" id="all-time">
-                    <span class="mid-number">{{ all_time | round(2) }}</span><span class="mid-unit">kg</span>
+                    <span class="mid-number">{{ all_time | round(3) }}</span><span class="mid-unit">kg</span>
                 </td>
             </tr>
         </table>

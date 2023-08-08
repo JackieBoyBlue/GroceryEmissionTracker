@@ -115,12 +115,13 @@
             .estimate {
                 font-weight: bold;
                 color: $secondary;
-                text-decoration: underline;
-                text-decoration-color: $primary;
             }
-
+            
             .estimate-link {
                 @include hover-grow;
+                color: $primary;
+                text-decoration: underline;
+                text-decoration-color: $secondary;
             }
         }
     }
