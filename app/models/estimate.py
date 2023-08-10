@@ -68,7 +68,7 @@ class Estimate(db.Model):
             items = self._transaction.receipt.first().items
             item_emissions = {}
 
-            # First, try to look up item specific CO2e.
+            # Look up item specific CO2e.
             if 'item' in active_methods:
                 self.method = 'item'
                 # db_item_names = [key for key in item_emission_factors.keys()]
@@ -82,7 +82,7 @@ class Estimate(db.Model):
                 #     print()
                 pass
 
-            # If that fails, try to look up category specific CO2e.
+            # Look up item category specific CO2e.
             elif 'category' in active_methods and self.method not in ['item', 'category']:
                 self.method = 'category'
 

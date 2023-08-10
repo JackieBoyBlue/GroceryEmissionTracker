@@ -30,29 +30,34 @@ class Instructor(EmbeddingModelInterface):
         category_inputs = [f'Represent the Food category: {category}' for category in categories]
         all_inputs = item_input + category_inputs
 
-        print('Getting embeddings...')
-        return self.model.encode(all_inputs)
+        # print('Getting embeddings...')
+        return self.model.encode(all_inputs).tolist()
 
 
 if __name__ == '__main__':
+    import pathlib, csv, ast
+    from colorama import Fore
 
-    item_1 = 'Tesco Lemons 4 Pack'
-    category_1 = 'Meat and meat products (excl. poultry)'
-    category_2 = 'Poultry meat and poultry meat products'
-    category_3 = 'Fish and fish products from catch'
-    category_4 = 'Fruit and vegetables'
-    category_5 = 'Vegetable and animal oils and fats'
-    category_6 = 'Dairy products'
-    category_7 = 'Grain mill products; starches and starch products'
-    category_8 = 'Bread; rusks and biscuits; pastry goods and cakes'
-    category_9 = 'Cocoa; chocolate and sugar confectionery'
-    category_10 = 'Other food products (incl. sugar)'
-    category_11 = 'Non-alcoholic beverages'
-    category_12 = 'Alcoholic beverages'
+    Embedder = Instructor()
 
-    instructor = Instructor()
-    # embeddings = instructor.get_embeddings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
-    # print(embeddings)
-    similarities = instructor.get_category_strings(item_1, category_1, category_2, category_3, category_4, category_5, category_6, category_7, category_8, category_9, category_10, category_11, category_12)
-    print(similarities)
+    emission_factor_path = pathlib.Path(__file__).parent.parent.parent / 'datasets/category_emission_factors.py'
+
+    with open(emission_factor_path, 'r') as f:
+        emission_factors = ast.literal_eval(f.read()[28:])
+
+    emission_factor_vectors = {emission_factor: Embedder.get_embeddings(emission_factor)[0] for emission_factor in emission_factors.keys()}
+    # print(emission_factor_vectors['Meat and meat products (excl. poultry)'])
+
+    csv_path = pathlib.Path(__file__).parent.parent.parent / 'datasets/foodItems-categories-pricesPerKg.csv'
+
+    results = []
+    total_correct = 0
+
+    confusion_matrix = {}
+    correct_items = []
+    incorrect_items = []
+
+    with open(csv_path, 'r') as f:
+        from test import test
+        test(Instructor)
     

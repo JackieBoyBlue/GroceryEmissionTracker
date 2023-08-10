@@ -21,6 +21,7 @@ torch = "*"
 transformers = "*"
 sentence-transformers = "*"
 instructorembedding = "*"
+colorama = "*"
 
 [dev-packages]
 
