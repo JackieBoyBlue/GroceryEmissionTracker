@@ -9,6 +9,9 @@ class Instructor(EmbeddingModelInterface):
     """Instructor class for comparing texts using the Instructor model."""
     versions = ('base', 'large', 'xl')
 
+    def __repr__(self) -> str:
+        return 'Instructor'
+    
     def __init__(self, version: str = 'xl'):
         """Initialise the Instructor model."""
 

@@ -16,6 +16,9 @@ class E5(EmbeddingModelInterface):
     """E5 class for comparing texts using the E5 model."""
     versions = ('large', 'base', 'small')
 
+    def __repr__(self) -> str:
+        return 'E5'
+
     def __init__(self, version: str = 'large') -> None:
         """Initialises the E5 class."""
 

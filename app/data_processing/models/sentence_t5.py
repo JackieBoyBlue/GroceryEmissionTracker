@@ -9,6 +9,9 @@ class SentenceT5(EmbeddingModelInterface):
     """SentenceT5 class for comparing texts using the T5 model."""
     versions = ('base', 'large', 'xl', 'xxl')
 
+    def __repr__(self) -> str:
+        return 'SentenceT5'
+    
     def __init__(self, version: str = 'xxl') -> None:
         """Initialise the SentenceT5 class."""
 

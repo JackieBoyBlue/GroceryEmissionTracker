@@ -9,6 +9,9 @@ class GTR_T5(EmbeddingModelInterface):
     """GTR_T5 class for comparing texts using the T5 model."""
     versions = ('base', 'large', 'xl', 'xxl')
 
+    def __repr__(self) -> str:
+        return 'GTR_T5'
+    
     def __init__(self, version: str = 'xxl') -> None:
         """Initialise the GTR T5 class."""
 
