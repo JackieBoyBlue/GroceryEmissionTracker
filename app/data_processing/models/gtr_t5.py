@@ -10,12 +10,12 @@ class GTR_T5(EmbeddingModelInterface):
     versions = ('base', 'large', 'xl', 'xxl')
 
     def __init__(self, version: str = 'xxl') -> None:
-        """Initialise the SentenceT5 class."""
+        """Initialise the GTR T5 class."""
 
         if not isinstance(version, str): raise TypeError('version must be a string')
         if version not in self.versions: raise ValueError(f'version must be one of {self.versions}')
 
-        print('Initialising SentenceT5 class...')
+        print('Initialising GTR T5 class...')
         self.model = SentenceTransformer(f'sentence-transformers/gtr-t5-{version}')
         print('Loaded model')
 
