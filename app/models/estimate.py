@@ -4,7 +4,7 @@ from uuid import uuid4
 from .transaction import Transaction, Merchant
 from ..datasets.mcc_codes import mcc_codes
 from ..datasets.item_emission_factors import item_emission_factors
-from ..data_processing.models.embedding_model import model as Embedder
+from ..models.embedding import model as Embedder
 import os
 from ast import literal_eval
 

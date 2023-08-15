@@ -1,11 +1,11 @@
 FOOD,KG C02e PER KG PRODUCE,£,Item,£/kg,Category
-"Oatmeal milk, unrefrigerated (from UK)",0.2,2.1,Alpro Oat No Sugars Chilled Drink 1 Litre,2.10,Other food products (incl. sugar)
-Apples (local),0.3,2.3,Tesco Jazz Apple,1.92,Fruit and vegetables
-Potatoes and root veg (UK grown),0.3,1.5,Tesco Organic White Potatoes 1.5Kg,1.00,Fruit and vegetables
-"Soya milk, unrefrigerated",0.4,1.25,Tesco Longlife Soya Drink Sweetened 1Ltr,1.25,Other food products (incl. sugar)
-Onions (UK grown),0.5,1.5,Tesco Organic Brown Onion 750G,2.00,Fruit and vegetables
-Garlic (UK grown),0.5,1,Tesco Organic Garlic 3 Pack,7.14,Fruit and vegetables
-Apples (shipped from New Zealand,0.6,1.49,Rosedene Farms Gala Apples 6 Pack,1.24,Fruit and vegetables
+"Oatmeal milk, unrefrigerated (from UK)",0.2,2.1,Alpro Oat No Sugars Chilled Drink 1 Litre,2.10,"Oat-based drink, plain"
+Apples (local),0.3,2.3,Tesco Jazz Apple,1.92,Apples
+Potatoes and root veg (UK grown),0.3,1.5,Tesco Organic White Potatoes 1.5Kg,1.00,Potatoes
+"Soya milk, unrefrigerated",0.4,1.25,Tesco Longlife Soya Drink Sweetened 1Ltr,1.25,Soy-milk
+Onions (UK grown),0.5,1.5,Tesco Organic Brown Onion 750G,2.00,Onion
+Garlic (UK grown),0.5,1,Tesco Organic Garlic 3 Pack,7.14,Garlic
+Apples (shipped from New Zealand,0.6,1.49,Rosedene Farms Gala Apples 6 Pack,1.24,Apples
 Lettuce (UK grown),0.6,1,Tesco Iceberg Lettuce 200G,5.00,Fruit and vegetables
 "Almond milk, unrefrigerated (from California)",0.6,1.9,Blue Diamond Almond Breeze Unsweetened Drink 1L,1.90,Other food products (incl. sugar)
 Bananas (shipped from Latin America,0.7,1.01,Bananas Loose,1.01,Fruit and vegetables

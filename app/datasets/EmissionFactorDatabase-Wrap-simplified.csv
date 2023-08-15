@@ -36,8 +36,7 @@ Beans: green,0.51
 Beans: pinto USA dried,0.73
 Beans: plake,0.3
 "Beaufort cheese, from cow's milk",6.229
-Beef,33.9877
-Beef UK British,25.76
+Beef,29.87385
 Beer,1.061
 Beet Sugar,1.496
 Beetroot,0.23
@@ -61,6 +60,7 @@ Berries,1.19
 "Brain, lamb, raw",25.892
 "Brain, pork, raw",1.862
 Bran grain bread,0.595
+"Bread, white, sliced, unsliced",0.837
 "Bread brown, French bread (baguette or ball), with flour type 80 or 110",0.663
 "Bread, French bread, baguette",0.729333333
 "Bread, gluten free",1.209
@@ -93,17 +93,16 @@ Canned sweet corn,2.263
 Capsicums/peppers,0.6
 Carp,3.7345
 "Carr‚ de l'Est cheese, from cow's milk",5.462
-Carrots,0.244
+Carrots,0.505
 Cashew nut,1.1265
 Cassava and Other Roots,0.948
-Cauliflower,0.488
+Cauliflower,0.628
 "Causses blue cheese, from cow's milk",5.462
 Celery,0.18
 "Chabichou cheese, from goat's milk",6.665
 "Chaource cheese, from cow's milk",5.462
 "Cheddar cheese, from cow's milk",6.229
 Cheese,8.86
-Cheese,20.967
 "Cheese, buche, from goat's milk",6.665
 "Cheese, dry, from goat's milk",8.644
 "Cheese, from goat's milk",6.665
@@ -113,6 +112,7 @@ Chestnuts,0.43
 "Chevrot cheese, from goat's milk",6.665
 Chick peas,0.67
 Chicken,5.4468125
+Chips - potato,2.7995
 "Chopped Tomatoes, Aluminium Tin",4.614
 Citrus Fruit,0.299
 Cocoa (Chocolate),33.669
@@ -138,9 +138,9 @@ Cranberries/blueberries,0.92
 "Cranberry, raw",1.018
 Cream,4.034
 "Crevalle jack, raw",4.209
+Crisps - potato,4.319
 "Crottin de Chavignol cheese, from goat's milk",6.665
 Crustaceans (farmed),18.681
-Cucumber/gherkins,1.695
 "Cured ham, raw",12.612
 Currants and gooseberries,0.84
 "Custard, Aluminium Tin",3.823
@@ -171,7 +171,6 @@ Eggs,3.222166667
 Fennel,0.48
 Feta cheese,5.7045
 Figs,0.43
-Maasdam-type cheese,6.229
 "Fish Fingers, Cardboard Box with PE Wax",6.189
 "Fontina cheese, from cow's milk",5.462
 "Fourme d'Ambert cheese, from cow's milk",5.462
@@ -181,20 +180,16 @@ Fresh Beetroot,-0.7365
 Fresh broccoli (field production),0.614
 Fresh brussels sprouts,0.548
 Fresh cabbage,0.38
-Fresh carrots,0.766
-Fresh cauliflower,0.568
 Fresh celery,0.492
 Fresh courgette,0.4595
 Fresh cucumber,1.8575
 Fresh green beans,0.179
 Fresh green peas shelled,0.666
 Fresh green peas unshelled (consumed raw),0.283
-Fresh lettuce,0.6515
 Fresh onions ,0.721
 Fresh Pepper,1.7525
 Fresh spinach,0.3845
 Fresh sweet corn on the cob,0.5755
-Fresh tomatoes,6.833
 Fresh winter squash,0.54
 "Freshwater bream, raw",11.901
 "Frik (crushed immature durum wheat), raw",1.292
@@ -202,7 +197,6 @@ Frozen - green asparagus,2.0075
 Frozen broccoli,0.9375
 Frozen brussels sprouts,0.874
 Frozen carrots,1.43
-Frozen cauliflower,0.8835
 Frozen green beans,0.5605
 Frozen onions,1.219
 "Frozen peas, shelled",1.4055
@@ -214,6 +208,7 @@ Frying oil,2.007
 "Garfish, raw",1.905
 Garlic,0.4615
 "Gex blue cheese, or Jura blue cheese or Septmoncel blue cheese, from cow's milk",5.462
+Gherkins,1.695
 "Gilthead seabream, raw, farmed",10.5035
 Ginger,0.88
 Gingerbread,1.296
@@ -268,10 +263,10 @@ Lamb UK British,25.84
 "Lemon zest, raw",0.603
 "Lemon, pulp, raw",0.603
 Lemons,0.3595
-Limes,0.3595
 Lentils,1.2945
-"Lettuce, LDPE Bag",1.949
+Lettuce,1.085333333
 "Lime, pulp, raw",0.398
+Limes,0.3595
 Ling common,8.691
 Linseed oil,2.896
 "Livarot cheese, from cow's milk",5.462
@@ -279,6 +274,7 @@ Linseed oil,2.896
 "Liver, lamb, raw",25.892
 "Liver, pork, raw",1.862
 Lobster,21.74
+Maasdam-type cheese,6.229
 Mackerel,2.1155
 Maize (Meal),1.451
 Maize/corn,0.63
@@ -318,8 +314,8 @@ Mutton & Goat Meat,33.523
 "Nursehound or lesser spotted dogfish, raw",10.932
 Nuts,0.398
 "Oat-based drink, plain",0.33
-Oats,0.86
 Oatmeal,2.114
+Oats,0.86
 "Octopus, squid, cuttlefish",8.07
 Olive oil,3.736333333
 Olives,1.9175
@@ -360,11 +356,8 @@ Pomfret,6.63
 "Pond smelt, raw",1.905
 "Pont l'Evˆque cheese, from cow's milk",5.462
 Porbeagle,11.44
-Pork,7.436676471
-Pork UK,5.57
+Pork,6.503338236
 Potatoes,0.497916667
-Chips - potato,2.7995
-Crisps - potato,4.319
 "Pouligny Saint-Pierre cheese, from goat's milk",6.665
 Poultry Meat,8.17
 "Pouting, raw",10.932
@@ -372,9 +365,7 @@ Poultry Meat,8.17
 Processed broccoli,0.626
 Processed cabbage,0.391
 Processed carrots,1.0115
-Processed cauliflower,0.5725
 Processed cheese,5.462
-Processed lettuce,0.6555
 Processed onions,0.793
 Processed sweet corn,1.0675
 "Provolone cheese, from cow's milk",6.229
@@ -392,7 +383,6 @@ Raspberries,0.978333333
 "Reblochon cheese, from cow's milk",5.462
 "Red berries (raspberries, strawberries, red currants, black currants) , raw",0.861
 "Red gurnard, raw",6.751
-"Red Wine, Glass Bottle with Aluminium Lid",1.819
 Rhombus,8.41
 Rice,2.696333333
 "Rice-based drink, plain",1.042
@@ -431,7 +421,6 @@ Shark mako,11.5
 "Shark, raw",10.932
 "Sheep milk, whole",2.405
 "Shrimp or prawn, raw",6.494
-"Skipjack tuna, raw",4.383
 "Smoked lardoons, raw",5.622
 "Snapper, raw",4.209
 "Soft drink, carbonated, pop",0.538
@@ -441,8 +430,8 @@ Soy drink,0.383
 Soy oil,8.057
 Soybean,0.58
 Soybeans Oil,5.623
-Soymilk,0.643
 Soybeans Tofu,2.601
+Soymilk,0.643
 Sparkling fruit wine,1.144
 Spinach,0.54
 "Spiny scorpionfish, raw",10.932
@@ -462,8 +451,7 @@ Tangerines/mandarins,0.51
 "Toasted bread, home-made",0.847
 "Tofu, PE Tray with PE Film",1.6375
 "Tomato coulis, canned (tomato puree semi-reduced 11%)",0.599
-Tomatoes,1.5425
-"Tomato Ketchup, Glass Jar with Aluminium Lid",4.09
+Tomato Ketchup,4.09
 Tomato paste,2.57075
 "Tomato pulp, canned",0.748
 "Tomato puree, canned",0.599
@@ -472,6 +460,7 @@ Tomato paste,2.57075
 "Tomato, dried, oil",6.309
 "Tomato, green, raw",0.484
 "Tomato, peeled, canned, drained",0.959
+Tomatoes,1.5425
 "Tomatoes - bottled, passate/puree",2.037
 "Tomatoes - canned, in juice",1.79
 Tomme cheese,5.462
@@ -481,7 +470,7 @@ Tomme cheese,5.462
 "Tripe, beef, raw",33.467
 Trout,5.820333333
 "Tub gurnard, raw",10.932
-Tuna,3.503
+Tuna,4.097333333
 Turbot,11.8545
 Turkey,8.995
 "Turkey egg, raw",2.03
@@ -505,6 +494,5 @@ Wine Grapes (Wine),1.546
 "Wine, white",1.109
 "Wine, white, sparkling",1.109
 "Yam or Indian potato, peeled, raw",0.588
-"Yellowfin tuna, raw",4.406
 Yoghurt,1.4695
 Zucchini/button squash,1.095

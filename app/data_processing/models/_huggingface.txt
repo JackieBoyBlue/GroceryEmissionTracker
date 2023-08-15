@@ -1,4 +1,0 @@
-https://huggingface.co/spaces/mteb/leaderboard
-
-On the pair classification tab the top 14 are all different versions of Instructor, GTR-T5, Sentence-T5, and E5.
-OpenAI's Ada is in the 15th spot.

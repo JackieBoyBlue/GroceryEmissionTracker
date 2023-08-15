@@ -82,7 +82,7 @@ with app.app_context():
     if estimate.Category.query.count() == 0:
         print('Generating category emission factors...')
         from .datasets.category_emission_factors import category_emission_factors
-        from .data_processing.models.embedding_model import model
+        from .models.embedding import model
         for category, factor in category_emission_factors.items():
             embedded = model.get_embeddings(category)[0]
 
