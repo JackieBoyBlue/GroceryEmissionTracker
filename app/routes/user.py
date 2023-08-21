@@ -9,6 +9,7 @@ from ..models.estimate import Estimate
 from ..forms.user import ReceiptForm
 from werkzeug.exceptions import HTTPException
 from ..models.asprise import Asprise
+import ast, os
 
 
 
@@ -146,9 +147,10 @@ def post_receipt(transaction_id):
 
     # Asprise supports JPEG, PNG, TIFF, PDF
     if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.tiff') or filename.endswith('.pdf'):
-
-        r = open('asprise-response.json', 'r').read() # Use to avoid maxing out the free limit on Asprise API calls in testing.
-        # r = Asprise.get_receipt_data(img.read(), transaction_id)
+        if ast.literal_eval(os.getenv('ASPRISE_API_ENABLED')):
+            r = Asprise.get_receipt_data(img.read(), transaction_id)
+        else:
+            r = open('asprise-response.json', 'r').read() # Use to avoid maxing out the free limit on Asprise API calls in testing.
         items = Asprise.extract_items_from_response(r)
         receipt_form = ReceiptForm()
         return render_template('user/auto-receipt_form.html', receipt_form=receipt_form, items=items, transaction_id=transaction_id), 200
