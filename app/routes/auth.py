@@ -8,6 +8,7 @@ from .starling import Starling, exclude_from_auth_check
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@exclude_from_auth_check
 def register():
     """Allows users to create an account."""
     if current_user.is_authenticated:
@@ -26,6 +27,7 @@ def register():
 
 
 @app.route('/login', methods=['GET', 'POST'])
+@exclude_from_auth_check
 def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
@@ -36,6 +38,7 @@ def login():
 
 
 @app.route('/logout')
+@exclude_from_auth_check
 def logout():
     if current_user.is_authenticated:
         Starling.logout()
