@@ -1,4 +1,5 @@
 from InstructorEmbedding import INSTRUCTOR
+import torch
 if __name__ == '__main__':
     from _interface import EmbeddingModelInterface
 else:
@@ -18,8 +19,8 @@ class Instructor(EmbeddingModelInterface):
         if not isinstance(version, str): raise TypeError('version must be a string')
         if version not in Instructor.versions: raise ValueError(f'version must be one of {Instructor.versions}')
 
-        print(f'Loading Instructor-{version} model...')
-        self.model = INSTRUCTOR(f'hkunlp/instructor-{version}')
+        print(f'Loading Instructor-{version}...')
+        self.model = INSTRUCTOR(f'hkunlp/instructor-{version}', device='cuda' if torch.cuda.is_available() else 'cpu')
         print('Loaded model')
     
 

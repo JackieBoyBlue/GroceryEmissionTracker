@@ -1,4 +1,5 @@
 from sentence_transformers import SentenceTransformer
+import torch
 if __name__ == '__main__':
     from _interface import EmbeddingModelInterface
 else:
@@ -18,8 +19,8 @@ class SentenceT5(EmbeddingModelInterface):
         if not isinstance(version, str): raise TypeError('version must be a string')
         if version not in self.versions: raise ValueError(f'version must be one of {self.versions}')
 
-        print('Initialising SentenceT5 class...')
-        self.model = SentenceTransformer(f'sentence-transformers/sentence-t5-{version}')
+        print('Initialising SentenceT5...')
+        self.model = SentenceTransformer(f'sentence-transformers/sentence-t5-{version}', device='cuda' if torch.cuda.is_available() else 'cpu')
         print('Loaded model')
 
 

@@ -5,6 +5,7 @@ def test(model):
 
     model = model()
 
+    print('Loading emission factors...')
     emission_factor_path = pathlib.Path(__file__).parent.parent.parent / 'datasets/item_emission_factors.py'
 
     with open(emission_factor_path, 'r') as f:
@@ -12,8 +13,7 @@ def test(model):
 
     emission_factor_vectors = {emission_factor: model.get_embeddings(emission_factor)[0] for emission_factor in emission_factors.keys()}
 
-    csv_path = pathlib.Path(__file__).parent.parent.parent / 'datasets/omnivore.csv'
-
+    print('Starting test...')
     results = []
     total_correct = 0
 
@@ -21,6 +21,7 @@ def test(model):
     correct_items = []
     incorrect_items = []
 
+    csv_path = pathlib.Path(__file__).parent.parent.parent / 'datasets/omnivore.csv'
     with open(csv_path, 'r') as f:
         reader = csv.reader(f)
         food_items = list(reader)
@@ -71,19 +72,18 @@ def test(model):
     print()
     print(f'Total:      {total_correct}/{len(results)}')
     print(f'Accuracy:   {round(total_correct / len(results), 2)}')
-    print()
-    print('Confusion matrix (true positive, false negative, false positive):')
-    [print(item) for item in confusion_matrix.items()]
-    print()
     print(f'Calculated CO2e:    {round(calculated_co2e, 2)}kg')
     print(f'Estimated CO2e:     {round(estimated_co2e, 2)}kg')
     print(f'Difference:         {round(calculated_co2e - estimated_co2e, 2)}kg')
     print(f'Error:              {round((calculated_co2e - estimated_co2e) / calculated_co2e, 2)}')
     print()
+    print('Confusion matrix (true positive, false negative, false positive):')
+    [print(item) for item in confusion_matrix.items()]
+    print()
     print('\nCorrect items:')
     [print(item[0]) for item in correct_items]
     print('\nIncorrect items:')
-    [print(f'{item[0]}\n{Fore.RED + item[1] + Fore.RESET}\n') for item in incorrect_items]
+    [print(f'{item[0]}\n{Fore.RED + item[1] + Fore.RESET}') for item in incorrect_items]
     print('\nInsufficient data:')
     [print(item) for item in insufficient_data]
     print(f'\nTotal items estimated: {len(correct_items + incorrect_items)} out of {len(food_items[1:])}')
