@@ -28,8 +28,10 @@
                 {{ receipt_form.transaction_id(value=transaction_id, class="form-control") }}
                 <div class="input-group my-3">
                     {{ receipt_form.item(id="i1", class="form-control", placeholder="Item", required=True) }}
-                    <span id="label1" for="p1" class="input-group-text">£</span>
-                    {{ receipt_form.price(id="p1", class="form-control amount", placeholder="0.00", style="max-width: 100px;", required=True, type="number", min=0.00, step=0.01) }}
+                    <span for="w1" class="input-group-text">kg/L</span>
+                    {{ receipt_form.weight(id="w1", class="form-control", placeholder="0.0", style="max-width: 100px;", type="number", min=0.0, step="0.001") }}
+                    <span for="p1" class="input-group-text">£</span>
+                    {{ receipt_form.price(id="p1", class="form-control", placeholder="0.00", style="max-width: 100px;", required=True, type="number", min=0.00, step=0.01) }}
                 </div>
     
                 <div id="extra-inputs"></div>

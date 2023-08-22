@@ -28,6 +28,7 @@ def test(model):
 
         calculated_co2e = 0
         estimated_co2e = 0
+        total_spent = 0
 
         insufficient_data = []
 
@@ -45,7 +46,7 @@ def test(model):
 
                 # CO2e estimation variables
                 # Amount spent / cost per kg = amount in kg
-                amount_spent = float(line[2])
+                total_spent = round(total_spent + float(line[2]), 2)
                 produce_kg = float(line[4])
 
                 # Amount in kg * CO2e per kg = total CO2e
@@ -70,12 +71,13 @@ def test(model):
         
     # [print(result) for result in results]
     print()
-    print(f'Total:      {total_correct}/{len(results)}')
-    print(f'Accuracy:   {round(total_correct / len(results), 2)}')
+    print(f'Total:              {total_correct}/{len(results)}')
+    print(f'Accuracy:           {round(total_correct / len(results), 2)}')
     print(f'Calculated CO2e:    {round(calculated_co2e, 2)}kg')
     print(f'Estimated CO2e:     {round(estimated_co2e, 2)}kg')
     print(f'Difference:         {round(calculated_co2e - estimated_co2e, 2)}kg')
     print(f'Error:              {round((calculated_co2e - estimated_co2e) / calculated_co2e, 2)}')
+    print(f'Total spent:        £{total_spent}')
     print()
     print('Confusion matrix (true positive, false negative, false positive):')
     [print(item) for item in confusion_matrix.items()]

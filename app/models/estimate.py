@@ -2,8 +2,6 @@ from .. import db
 from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, PickleType, desc
 from uuid import uuid4
 from .transaction import Transaction, Merchant
-from ..datasets.mcc_codes import mcc_codes
-from ..datasets.item_emission_factors import emission_factors
 from ..models.embedding import model as Embedder
 import os
 from ast import literal_eval
@@ -13,6 +11,8 @@ active_methods = []
 if literal_eval(os.getenv('ESTIMATE_BY_ITEM', False)): active_methods.append('item')
 if literal_eval(os.getenv('ESTIMATE_BY_MERCHANT', False)): active_methods.append('merchant')
 if literal_eval(os.getenv('ESTIMATE_BY_MCC', True)): active_methods.append('mcc')
+
+average_grocery_emission_factor = 0.518 # kg CO2e / £
 
 
 class Grocery_Item(db.Model):
@@ -60,12 +60,13 @@ class Estimate(db.Model):
 
     def generate_estimate(self) -> dict:
         """Calculates the CO2e of the transaction. Returns a dictionary of the CO2e and the method used to calculate it."""
+        item_emissions = {}
+        no_weight_items = {}
 
         # Prioritise receipts as they have the most detailed data.
         if self._transaction.receipt.first():
 
             items = self._transaction.receipt.first().items
-            item_emissions = {}
 
             # Look up item specific CO2e.
             if 'item' in active_methods:
@@ -73,22 +74,37 @@ class Estimate(db.Model):
                 categories = Grocery_Item.query.all()
                 category_tuples = [(category.name, category.vector) for category in categories]
 
-                for item, price in items.items():
+                total_spent = 0
+                
+                # Put items with no weight provided into a separate dict.
+                for item in list(items.items()):
+                    weightprice = literal_eval(item[1])
+                    if weightprice[0] == None:
+                        no_weight_items[item[0]] = items.pop(item[0])
 
+                # Esitmate the CO2e of items with weight provided.
+                for item, weightprice in items.items():
+
+                    weight, price = literal_eval(weightprice)
+                    
                     item_embedding = Embedder.get_embeddings(item)[0]
                     best_match = Embedder.get_category_from_vectors(item_embedding, *category_tuples)
 
-                    item_emissions[item] = float(price) * float(Grocery_Item.query.get(best_match[0]).factor)
+                    item_emissions[item] = weight * float(Grocery_Item.query.get(best_match[0]).factor)
+
+                    total_spent += price
 
                 self.co2e = sum(item_emissions.values())
 
-        # If no receipt is available, base an estimate on the merchant.
-        elif Merchant.query.get(self._transaction.merchant_id):
+        # Use previous estimates and merchant category to estimate the transaction, or remaining items with no weight provided.
+        if Merchant.query.get(self._transaction.merchant_id):
             
             # First, try to base an estimate on previous user transactions with this merchant.
             try:
-                if 'merchant' in active_methods and self.method in [None, 'mcc']:
-                    self.method = 'merchant'
+                if 'merchant' in active_methods:
+                    print('merchant')
+                    if len(no_weight_items) != 0: self.method += '/merchant'
+                    else: self.method = 'merchant'
                     merchant_transactions = Transaction.query.filter_by(merchant_id=self._transaction.merchant_id).all()
                     if merchant_transactions:
 
@@ -96,24 +112,41 @@ class Estimate(db.Model):
                         total_amount_pence = 0
 
                         for transaction in merchant_transactions:
-                            if transaction.co2e and transaction.estimate.first().method in ['item', 'merchant']:
-
+                            if transaction.co2e and transaction.amount_pence:
                                 total_co2e += transaction.co2e
                                 total_amount_pence += transaction.amount_pence
                         
                         if total_amount_pence == 0: raise Exception('No previous transactions with this merchant.')
 
-                        emission_factor =  total_co2e / round(total_amount_pence, 2)
-                        self.co2e = emission_factor * round(self._transaction.amount_pence, 2)
+                        merchant_emission_factor =  total_co2e / round(total_amount_pence, 2)
 
-            # If that fails, try to base an estimate on the merchant's MCC.
+                        if len(no_weight_items) != 0:
+                            for item, weightprice in no_weight_items.items():
+                                price = literal_eval(weightprice)[1]
+                                item_emissions[item] = price * merchant_emission_factor
+                                self.co2e = sum(item_emissions.values())
+
+                        else:
+                            self.co2e = (merchant_emission_factor * self._transaction.amount_pence) / 100
+                else: raise Exception('Merchant method inactive.')
+
+            # If that fails, base an estimate on the merchant's MCC.
             except:
                 if 'mcc' in active_methods:
-                    self.method = 'mcc'
+
+                    if len(no_weight_items) != 0: self.method += '/mcc'
+                    else: self.method = 'mcc'
+
                     mcc = Merchant.query.get(self._transaction.merchant_id).mcc
                     if mcc >= 5411 and mcc <= 5499:
-                        average_grocery_emission_factor = 0.518 # kg CO2e / £
-                        self.co2e = (average_grocery_emission_factor * self._transaction.amount_pence) / 100
+
+                        if len(no_weight_items) != 0:
+                            for item, weightprice in no_weight_items.items():
+                                price = literal_eval(weightprice)[1]
+                                item_emissions[item] = price * average_grocery_emission_factor
+                                self.co2e = sum(item_emissions.values())
+                        else:
+                            self.co2e = (average_grocery_emission_factor * self._transaction.amount_pence) / 100
         
         if self.method and self.co2e:
             transaction = Transaction.query.get(self.transaction_id)

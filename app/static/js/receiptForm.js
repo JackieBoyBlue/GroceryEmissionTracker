@@ -14,7 +14,9 @@ receiptForm.addEventListener("click", (event) => {
             input.setAttribute('class', 'input-group my-3');
             input.innerHTML = `
             <input class="form-control" id="i${numInputs}" name="i${numInputs}" placeholder="Item" required="True" type="text">
-            <span id="label1" for="p${numInputs}" class="input-group-text">£</span>
+            <span for="w${numInputs}" class="input-group-text">kg/L</span>
+            <input class="form-control" id="w${numInputs}" min="0" name="w${numInputs}" placeholder="0.0" style="max-width: 100px;" type="number" value="", step="0.001">
+            <span for="p${numInputs}" class="input-group-text">£</span>
             <input class="form-control" id="p${numInputs}" min="0" name="p${numInputs}" placeholder="0.00" required="True" step="0.01" style="max-width: 100px;" type="number">`;
             inputs.appendChild(input);
         };
@@ -37,7 +39,7 @@ receiptForm.addEventListener("click", (event) => {
 // Update the total amount when the user inputs a price.
 
 receiptForm.addEventListener("input", (event) => {
-    if (event.target.type == 'number') {
+    if (event.target.type == 'number' && event.target.id[0] == 'p' && event.target.value != '') {
         tallyTotal();
     }
 });
@@ -53,11 +55,14 @@ function tallyTotal() {
     
     console.log(form);
     for (let i = 0; i < form.length; i++) {
-        if (form[i].type == 'number') {
+        if (form[i].type == 'number' && form[i].id[0] == 'p') {
             if (form[i].value == '') {
                 form[i].value = 0;
             }
             total += parseFloat(form[i].value);
+            if (form[i].value == 0) {
+                form[i].value = '';
+            }
         }
     }
     if (isNaN(total)) {

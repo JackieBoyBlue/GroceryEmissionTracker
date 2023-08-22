@@ -1,7 +1,7 @@
 from .. import app, db
 from flask import render_template, redirect, jsonify, url_for, request, session
 from datetime import datetime, timedelta
-from flask_login import current_user
+from flask_login import current_user, login_required
 from .starling import Starling, exclude_from_auth_check
 from ..models.user import load_user
 from ..models.transaction import Transaction, Receipt
@@ -11,6 +11,17 @@ from werkzeug.exceptions import HTTPException
 from .asprise import Asprise
 import ast, os
 
+
+def login_required(f):
+    """A wrapper for the login_required decorator from Flask-Login."""
+    
+    def wrapper(*args, **kwargs):
+        if current_user.is_authenticated:
+            return f(*args, **kwargs)
+        else:
+            return redirect(url_for('login'))
+    wrapper.__name__ = f.__name__
+    return wrapper
 
 
 @app.context_processor
@@ -35,6 +46,7 @@ def home():
 
 
 @app.route('/dashboard/')
+@login_required
 def dashboard():
     """The dashboard page."""
 
@@ -75,6 +87,7 @@ def dashboard():
 
 
 @app.route('/transaction_feed')
+@login_required
 def transaction_feed():
     """Feeds transactions to the dashboard via htmx."""
 
@@ -87,6 +100,7 @@ def transaction_feed():
 
 
 @app.route('/get-co2e-estimate/<transaction_id>')
+@login_required
 def get_co2e_estimate(transaction_id):
     """Gets the CO2e estimate for a transaction."""
 
@@ -105,6 +119,7 @@ def get_co2e_estimate(transaction_id):
 
 
 @app.route('/add-receipt/<transaction_id>', methods=['GET', 'POST'])
+@login_required
 def add_receipt(transaction_id):
     """Adds a receipt to a transaction."""
 
@@ -114,9 +129,8 @@ def add_receipt(transaction_id):
         items_dict = {}
         for item in request.form.items():
             if item[0].startswith('i') and item[0][-1] != 'd':
-                items_dict[item[1]] = request.form['p' + item[0][1:]]
+                items_dict[item[1]] = f"[{request.form['w' + item[0][1:]] or 'None'}, {request.form['p' + item[0][1:]]}]"
         
-
         receipt = Receipt(
             transaction_id=transaction_id,
             items=items_dict
@@ -139,6 +153,7 @@ def add_receipt(transaction_id):
 
 
 @app.route('/post-receipt/<transaction_id>', methods=['POST'])
+@login_required
 def post_receipt(transaction_id):
     """Receieves a receipt, sends it to Asprise, and returns a html form containing the items to htmx."""
 
