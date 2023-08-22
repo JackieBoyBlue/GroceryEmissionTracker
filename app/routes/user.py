@@ -96,7 +96,7 @@ def get_co2e_estimate(transaction_id):
         estimate.generate_estimate()
 
         if 'dashboard' in request.referrer:
-            return f'<span class="mb-0 fs-5 float-end estimate">{estimate.get_estimate()["co2e"]}kg</span>'
+            return f'<span class="mb-0 fs-5 float-end estimate">{round(estimate.get_estimate()["co2e"], 5)}kg</span>'
         else:
             return redirect(url_for('dashboard'))
         # return jsonify({'co2e': estimate.co2e, 'method': estimate.method})

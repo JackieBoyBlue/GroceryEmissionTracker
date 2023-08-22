@@ -17,7 +17,7 @@ client_secret = os.environ.get('CLIENT_SECRET')
 auth_uri = 'https://oauth-sandbox.starlingbank.com'
 api_uri = 'https://api-sandbox.starlingbank.com'
 user_agent = 'GroceryEmissionTracker|SmithJJ7@cardiff.ac.uk|FlaskApp|1.0'
-acceptable_categories = ['GROCERIES', 'EATING_OUT']
+acceptable_categories = ['GROCERIES', 'EATING_OUT', 'GENERAL']
 
 
 
@@ -97,7 +97,7 @@ class Starling:
         feed_logs = user.feed_logs
         
         if feed_logs.all(): last_pull = feed_logs.order_by(text('datetime desc')).limit(1).first().datetime
-        else: last_pull = datetime.utcnow() - timedelta(days=7)
+        else: last_pull = datetime.utcnow() - timedelta(days=28)
 
         last_pull = last_pull.isoformat(timespec='milliseconds') + 'Z'
 
