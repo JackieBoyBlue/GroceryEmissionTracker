@@ -96,7 +96,7 @@ class Estimate(db.Model):
                         total_amount_pence = 0
 
                         for transaction in merchant_transactions:
-                            if transaction.co2e:
+                            if transaction.co2e and transaction.estimate.first().method in ['item', 'merchant']:
 
                                 total_co2e += transaction.co2e
                                 total_amount_pence += transaction.amount_pence
@@ -111,9 +111,9 @@ class Estimate(db.Model):
                 if 'mcc' in active_methods:
                     self.method = 'mcc'
                     mcc = Merchant.query.get(self._transaction.merchant_id).mcc
-                    if mcc in mcc_codes:
-                        mcc_category = mcc_codes[str(Merchant.query.get(self._transaction.merchant_id).mcc)]
-                    pass
+                    if mcc >= 5411 and mcc <= 5499:
+                        average_grocery_emission_factor = 0.518 # kg CO2e / £
+                        self.co2e = (average_grocery_emission_factor * self._transaction.amount_pence) / 100
         
         if self.method and self.co2e:
             transaction = Transaction.query.get(self.transaction_id)

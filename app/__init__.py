@@ -81,18 +81,18 @@ with app.app_context():
     # Create category emission factors if none exist
     if estimate.Grocery_Item.query.count() == 0:
         print('Generating category emission factors...')
-        from .datasets.category_emission_factors import category_emission_factors
+        from .datasets.item_emission_factors import emission_factors
         from .models.embedding import model
-        for category, factor in category_emission_factors.items():
-            embedded = model.get_embeddings(category)[0]
+        for item, factor in emission_factors.items():
+            embedded = model.get_embeddings(item)[0]
 
-            category = estimate.Grocery_Item(
-                name=category,
+            item = estimate.Grocery_Item(
+                name=item,
                 factor=factor,
                 vector=embedded
             )
-            db.session.add(category)
-            print(f'{category.name} added to database.')
+            db.session.add(item)
+            print(f'{item.name} added to database.')
         db.session.commit()
         print('Finished generating category emission factors.')
 
