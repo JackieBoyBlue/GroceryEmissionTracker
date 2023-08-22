@@ -6,6 +6,7 @@ from json import loads
 class Asprise:
     """A class for interacting with the Asprise API."""
 
+    @staticmethod
     def get_receipt_data(img: bytes, ref: str) -> str:
         """Gets the receipt data from the Asprise API."""
 
@@ -23,7 +24,7 @@ class Asprise:
 
         return r.text
     
-
+    @staticmethod
     def extract_items_from_response(response: str) -> dict:
         """Extracts the items from the response from the Asprise API."""
 

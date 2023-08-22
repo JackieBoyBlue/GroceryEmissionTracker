@@ -16,7 +16,7 @@
             <span class="d-flex flex-column align-items-end float-end">
                 <span class="mb-0 fs-5 float-end">{{ pence_to_pounds(transaction.amount_pence) }}</span>
                 {% if transaction.co2e == None %}
-                    <a href="{{ url_for('get_co2e_estimate', transaction_id=transaction.id) }}" class="mb-0 fs-5 float-end estimate-link">estimate</a>
+                    <a hx-get="{{ url_for('get_co2e_estimate', transaction_id=transaction.id) }}" hx-swap="outerHTML" class="mb-0 fs-5 float-end estimate-link">estimate</a>
                 {% else %}
                     <span class="mb-0 fs-5 float-end estimate">{{ transaction.co2e | round(5) }}kg</span>
                 {% endif %}

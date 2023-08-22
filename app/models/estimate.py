@@ -3,7 +3,7 @@ from sqlalchemy import Column, ForeignKey, String, Integer, DateTime, PickleType
 from uuid import uuid4
 from .transaction import Transaction, Merchant
 from ..datasets.mcc_codes import mcc_codes
-from ..datasets.item_emission_factors import item_emission_factors
+from ..datasets.item_emission_factors import emission_factors
 from ..models.embedding import model as Embedder
 import os
 from ast import literal_eval
@@ -11,12 +11,11 @@ from ast import literal_eval
 
 active_methods = []
 if literal_eval(os.getenv('ESTIMATE_BY_ITEM', False)): active_methods.append('item')
-if literal_eval(os.getenv('ESTIMATE_BY_ITEM_CATEGORY', True)): active_methods.append('category')
 if literal_eval(os.getenv('ESTIMATE_BY_MERCHANT', False)): active_methods.append('merchant')
 if literal_eval(os.getenv('ESTIMATE_BY_MCC', True)): active_methods.append('mcc')
 
 
-class Category(db.Model):
+class Grocery_Item(db.Model):
     __tablename__ = 'category'
 
     name = Column(String, primary_key=True)
@@ -71,22 +70,7 @@ class Estimate(db.Model):
             # Look up item specific CO2e.
             if 'item' in active_methods:
                 self.method = 'item'
-                # db_item_names = [key for key in item_emission_factors.keys()]
-                # for item, price in items.items():
-                #     print()
-                #     print(item)
-                        
-                #     best_match = Embedder.get_category_from_strings(item, *db_item_names)
-
-                #     print(best_match)
-                #     print()
-                pass
-
-            # Look up item category specific CO2e.
-            elif 'category' in active_methods and self.method not in ['item', 'category']:
-                self.method = 'category'
-
-                categories = Category.query.all()
+                categories = Grocery_Item.query.all()
                 category_tuples = [(category.name, category.vector) for category in categories]
 
                 for item, price in items.items():
@@ -94,7 +78,7 @@ class Estimate(db.Model):
                     item_embedding = Embedder.get_embeddings(item)[0]
                     best_match = Embedder.get_category_from_vectors(item_embedding, *category_tuples)
 
-                    item_emissions[item] = float(price) * float(Category.query.get(best_match[0]).factor)
+                    item_emissions[item] = float(price) * float(Grocery_Item.query.get(best_match[0]).factor)
 
                 self.co2e = sum(item_emissions.values())
 
@@ -102,15 +86,34 @@ class Estimate(db.Model):
         elif Merchant.query.get(self._transaction.merchant_id):
             
             # First, try to base an estimate on previous user transactions with this merchant.
-            if 'merchant' in active_methods and self.method not in ['item', 'category', 'merchant']:
-                self.method = 'merchant'
-                pass
-            
+            try:
+                if 'merchant' in active_methods and self.method in [None, 'mcc']:
+                    self.method = 'merchant'
+                    merchant_transactions = Transaction.query.filter_by(merchant_id=self._transaction.merchant_id).all()
+                    if merchant_transactions:
+
+                        total_co2e = 0
+                        total_amount_pence = 0
+
+                        for transaction in merchant_transactions:
+                            if transaction.co2e:
+
+                                total_co2e += transaction.co2e
+                                total_amount_pence += transaction.amount_pence
+                        
+                        if total_amount_pence == 0: raise Exception('No previous transactions with this merchant.')
+
+                        emission_factor =  total_co2e / round(total_amount_pence, 2)
+                        self.co2e = emission_factor * round(self._transaction.amount_pence, 2)
+
             # If that fails, try to base an estimate on the merchant's MCC.
-            if 'mcc' in active_methods:
-                self.method = 'mcc'
-                mcc_code = mcc_codes[str(Merchant.query.get(self._transaction.merchant_id).mcc)]
-                pass
+            except:
+                if 'mcc' in active_methods:
+                    self.method = 'mcc'
+                    mcc = Merchant.query.get(self._transaction.merchant_id).mcc
+                    if mcc in mcc_codes:
+                        mcc_category = mcc_codes[str(Merchant.query.get(self._transaction.merchant_id).mcc)]
+                    pass
         
         if self.method and self.co2e:
             transaction = Transaction.query.get(self.transaction_id)

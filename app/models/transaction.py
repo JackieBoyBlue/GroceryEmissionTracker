@@ -12,7 +12,6 @@ class Transaction(db.Model):
     datetime = Column(DateTime, nullable=False)
 
     merchant_id = Column(Integer, ForeignKey("merchant.id"))
-    merchant_mcc = Column(Integer, nullable=True)
 
     receipt = db.relationship('Receipt', backref='receipt', lazy='dynamic', cascade='all, delete')
 

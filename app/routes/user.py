@@ -8,7 +8,7 @@ from ..models.transaction import Transaction, Receipt
 from ..models.estimate import Estimate
 from ..forms.user import ReceiptForm
 from werkzeug.exceptions import HTTPException
-from ..models.asprise import Asprise
+from .asprise import Asprise
 import ast, os
 
 
@@ -95,7 +95,10 @@ def get_co2e_estimate(transaction_id):
         estimate = Estimate(transaction)
         estimate.generate_estimate()
 
-        return redirect(url_for('dashboard'))
+        if 'dashboard' in request.referrer:
+            return f'<span class="mb-0 fs-5 float-end estimate">{estimate.get_estimate()["co2e"]}kg</span>'
+        else:
+            return redirect(url_for('dashboard'))
         # return jsonify({'co2e': estimate.co2e, 'method': estimate.method})
 
     else: return 'not found', 404

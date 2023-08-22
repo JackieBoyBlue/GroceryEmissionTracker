@@ -17,7 +17,7 @@ client_secret = os.environ.get('CLIENT_SECRET')
 auth_uri = 'https://oauth-sandbox.starlingbank.com'
 api_uri = 'https://api-sandbox.starlingbank.com'
 user_agent = 'GroceryEmissionTracker|SmithJJ7@cardiff.ac.uk|FlaskApp|1.0'
-acceptable_categories = ['GROCERIES', 'EATING_OUT', 'GENERAL']
+acceptable_categories = ['GROCERIES', 'EATING_OUT']
 
 
 
@@ -52,6 +52,7 @@ def exclude_from_auth_check(func):
 class Starling:
     """A class for interacting with Starling's API."""
 
+    @staticmethod
     def get_name() -> str or None:
         """Requests an account holder's name from Starling's API. Returns the name if available, else None."""
 
@@ -63,7 +64,7 @@ class Starling:
 
         if 'accountHolderName' in dict: return dict['accountHolderName']
     
-
+    @staticmethod
     def get_account_info():
         """Requests account information from Starling's API. Returns a dictionary of info if available, else None."""
 
@@ -78,7 +79,7 @@ class Starling:
 
         return dict
 
-
+    @staticmethod
     def logout():
         """Tells Starling to invalidate the current access token, forcing re-authentication before further use."""
 
@@ -87,7 +88,7 @@ class Starling:
         url = api_uri + '/api/v2/identity/logout'
         requests.put(url, headers=headers)
     
-
+    @staticmethod
     def get_feed() -> dict or None:
         """Requests the user's feed from Starling's API. Returns a dictionary of feed items if available, else None."""
 
@@ -153,7 +154,7 @@ class Starling:
             db.session.add(new_feed_log)
             db.session.commit()
 
-
+    @staticmethod
     def get_mcc(feed_item_uid: uuid4) -> dict or None:
         """Requests the merchant data for a given feed item from Starling's API. Returns a dictionary of data if available, else None."""
 
