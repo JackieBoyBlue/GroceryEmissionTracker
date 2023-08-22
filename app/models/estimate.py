@@ -12,8 +12,6 @@ if literal_eval(os.getenv('ESTIMATE_BY_ITEM', False)): active_methods.append('it
 if literal_eval(os.getenv('ESTIMATE_BY_MERCHANT', False)): active_methods.append('merchant')
 if literal_eval(os.getenv('ESTIMATE_BY_MCC', True)): active_methods.append('mcc')
 
-average_grocery_emission_factor = 0.518 # kg CO2e / £
-
 
 class Grocery_Item(db.Model):
     __tablename__ = 'category'
@@ -138,15 +136,38 @@ class Estimate(db.Model):
                     else: self.method = 'mcc'
 
                     mcc = Merchant.query.get(self._transaction.merchant_id).mcc
+
+                    match mcc:
+                        case 5411:
+                            # Grocery stores and supermarkets
+                            MCC_emission_factor = 0.518 # kg CO2e / £
+                        case 5422:
+                            # Freezer and locker meat provisioners
+                            MCC_emission_factor = 1.075
+                        case 5441:
+                            # Candy, nut, confectionery stores
+                            MCC_emission_factor = 1.057
+                        case 5451:
+                            # Dairy product stores
+                            MCC_emission_factor = 0.659
+                        case 5462:
+                            # Bakeries
+                            MCC_emission_factor = 0.316
+                        case 5499:
+                            # Convenience stores and speciality markets
+                            MCC_emission_factor = 0.518
+                        case _:
+                            raise Exception('MCC does not sell groceries.')
+
                     if mcc >= 5411 and mcc <= 5499:
 
                         if len(no_weight_items) != 0:
                             for item, weightprice in no_weight_items.items():
                                 price = literal_eval(weightprice)[1]
-                                item_emissions[item] = price * average_grocery_emission_factor
+                                item_emissions[item] = price * MCC_emission_factor
                                 self.co2e = sum(item_emissions.values())
                         else:
-                            self.co2e = (average_grocery_emission_factor * self._transaction.amount_pence) / 100
+                            self.co2e = (MCC_emission_factor * self._transaction.amount_pence) / 100
         
         if self.method and self.co2e:
             transaction = Transaction.query.get(self.transaction_id)
