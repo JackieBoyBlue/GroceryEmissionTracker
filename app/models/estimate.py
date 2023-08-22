@@ -86,7 +86,7 @@ class Estimate(db.Model):
                     weight, price = literal_eval(weightprice)
                     
                     item_embedding = Embedder.get_embeddings(item)[0]
-                    best_match = Embedder.get_category_from_vectors(item_embedding, *category_tuples)
+                    best_match = Embedder.get_item_from_vectors(item_embedding, *category_tuples)
 
                     item_emissions[item] = weight * float(Grocery_Item.query.get(best_match[0]).factor)
 

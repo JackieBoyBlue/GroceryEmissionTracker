@@ -37,7 +37,7 @@ def test(model):
             if all(line) and len(line) == 6:
                 # Get the item embedding and find the best match
                 item_embedding = model.get_embeddings(line[3])[0]
-                best_match = model.get_category_from_vectors(item_embedding, *emission_factor_vectors.items())
+                best_match = model.get_item_from_vectors(item_embedding, *emission_factor_vectors.items())
 
                 # Check if the best match is correct
                 correct = best_match[0] == line[5]

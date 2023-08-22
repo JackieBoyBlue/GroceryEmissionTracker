@@ -14,7 +14,7 @@ class EmbeddingModelInterface(ABC):
     def get_embeddings(self, item: str, *categories: str) -> list:
         pass
 
-    def get_category_from_strings(self, compare_this: str, to_this: str, *and_this: str, get_all_cosines: bool = False) -> tuple:
+    def get_item_from_strings(self, compare_this: str, to_this: str, *and_this: str, get_all_cosines: bool = False) -> tuple:
         """Takes a target string and n strings to compare it to, and returns the most similar string and its cosine similarity."""
 
         if not isinstance(compare_this, str): raise TypeError('compare_this must be a string')
@@ -38,7 +38,7 @@ class EmbeddingModelInterface(ABC):
         return (most_similar, cosines[most_similar])
     
     
-    def get_category_from_vectors(self, compare_this: list, to_this: tuple, *and_this: tuple, get_all_cosines: bool = False) -> tuple:
+    def get_item_from_vectors(self, compare_this: list, to_this: tuple, *and_this: tuple, get_all_cosines: bool = False) -> tuple:
         """Takes a target vector and n vectors to compare it to, and returns the most similar vector and its cosine similarity."""
 
         if not isinstance(compare_this, list): raise TypeError('compare_this must be a list')
