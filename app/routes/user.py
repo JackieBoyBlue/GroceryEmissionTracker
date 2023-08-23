@@ -129,15 +129,16 @@ def add_receipt(transaction_id):
         items_dict = {}
         for item in request.form.items():
             if item[0].startswith('i') and item[0][-1] != 'd':
-                items_dict[item[1]] = f"[{request.form['w' + item[0][1:]] or 'None'}, {request.form['p' + item[0][1:]]}]"
-        
-        receipt = Receipt(
-            transaction_id=transaction_id,
-            items=items_dict
-        )
-        db.session.add(receipt)
-        db.session.commit()
-        return redirect(url_for('get_co2e_estimate', transaction_id=transaction_id))
+                items_dict[item[1]] = f"[{request.form['w' + item[0][1:]] or 'None'}, {int(float(request.form['p' + item[0][1:]]) * 100)}]"
+        print(items_dict)
+        return '', 200
+        # receipt = Receipt(
+        #     transaction_id=transaction_id,
+        #     items=items_dict
+        # )
+        # db.session.add(receipt)
+        # db.session.commit()
+        # return redirect(url_for('get_co2e_estimate', transaction_id=transaction_id))
 
     transaction = Transaction.query.get(transaction_id)
     if transaction:

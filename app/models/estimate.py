@@ -100,7 +100,6 @@ class Estimate(db.Model):
             # First, try to base an estimate on previous user transactions with this merchant.
             try:
                 if 'merchant' in active_methods:
-                    print('merchant')
                     if len(no_weight_items) != 0: self.method += '/merchant'
                     else: self.method = 'merchant'
                     merchant_transactions = Transaction.query.filter_by(merchant_id=self._transaction.merchant_id).all()
@@ -116,7 +115,7 @@ class Estimate(db.Model):
                         
                         if total_amount_pence == 0: raise Exception('No previous transactions with this merchant.')
 
-                        merchant_emission_factor =  total_co2e / round(total_amount_pence, 2)
+                        merchant_emission_factor =  total_co2e / total_amount_pence
 
                         if len(no_weight_items) != 0:
                             for item, weightprice in no_weight_items.items():
@@ -125,7 +124,7 @@ class Estimate(db.Model):
                                 self.co2e = sum(item_emissions.values())
 
                         else:
-                            self.co2e = (merchant_emission_factor * self._transaction.amount_pence) / 100
+                            self.co2e = merchant_emission_factor * self._transaction.amount_pence
                 else: raise Exception('Merchant method inactive.')
 
             # If that fails, base an estimate on the merchant's MCC.
@@ -167,7 +166,7 @@ class Estimate(db.Model):
                                 item_emissions[item] = price * MCC_emission_factor
                                 self.co2e = sum(item_emissions.values())
                         else:
-                            self.co2e = (MCC_emission_factor * self._transaction.amount_pence) / 100
+                            self.co2e = MCC_emission_factor * (self._transaction.amount_pence / 100)
         
         if self.method and self.co2e:
             transaction = Transaction.query.get(self.transaction_id)
