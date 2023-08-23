@@ -1,0 +1,63 @@
+FOOD (Defra),KG C02e PER KG PRODUCE (WRAP),£ (Tesco),ITEM (Tesco),"WEIGHT(kg, Tesco)",ITEM DESCRIPTION (WRAP)
+Semi-skimmed milk,1.7035,0.9,Tesco Semi Skimmed Milk 568Ml/1 Pint,0.568,Milk
+Yoghurt,1.4695,1.95,Onken Mango & Passion Fruit Yogurt 450G,0.45,Yoghurt
+Natural cheese,5.462,2.75,Tesco Grated Mozzarella & Cheese Mix 200G,0.2,"Mozzarella cheese, from cow's milk"
+Hard cheese - cheddar type,6.229,3.8,Tesco Finest Vintage Cheddar 300G,0.3,"Cheddar cheese, from cow's milk"
+Soft natural cheese,8.86,1.58,Seriously Strong Lighter Cheese Spreadable 125G,0.125,Cheese
+Beef and veal,1.5,3,Quorn Vegan Roast Beef Style Slices 105G,0.105,"Meat substitutes, vegan"
+Beef steak,1.5,3,Vivera Plant Steaks 200G,0.2,"Meat substitutes, vegan"
+Minced beef,1.5,3.3,This Isn't Beef Plant Based Mince 250G,0.25,"Meat substitutes, vegan"
+Pork,1.5,3,Wicked Kitchen 2 No-Pork & Choriz-No Patties 226G,0.226,"Meat substitutes, vegan"
+"Bacon and ham, uncooked",1.5,3.5,This Isn't Bacon Streaky Plant-Based Rashers 105G,0.105,"Meat substitutes, vegan"
+"Bacon and ham, cooked",1.5,3,Quorn Vegan Finely Sliced Ham Style Slices 120G,0.12,"Meat substitutes, vegan"
+Cooked poultry not purchased in cans,4.5,2.5,Quorn Chicken Style Pieces 300G,0.3,"Meat substitutes, vegetarian"
+"Chicken, uncooked - whole chicken or chicken pieces",1.5,3,Vegetarian Butcher Vegan Impeckable Chicken Breast 180G,0.18,"Meat substitutes, vegan"
+"Meat pies and sausage rolls, ready to eat",4.5,2.5,Linda Mccartney 6 Vegetarian Sausage Rolls 342G,0.342,"Meat substitutes, vegetarian"
+"Salmon, fresh or chilled",4.5,3.5,Vivera Plant Salmon Style Fillets 2X100g,0.2,"Meat substitutes, vegetarian"
+Other tinned or bottled fish,1.5,2.5,Future Farm Plant-Based Future Tvna 150G,0.15,"Meat substitutes, vegan"
+Eggs,3.222166667,1.5,Tesco Medium Free Range Eggs 6 Pack,,Eggs
+Butter,11.52,2,Anchor Salted Butter 200G,0.2,Butter
+Vegetable and salad oils,3.736333333,2.5,Tesco Olive Oil 250Ml,0.25,Olive oil
+Sugar and preserves,,0.39,Stockwell & Co Strawberry Jam 454G,0.454,
+Fresh potatoes,0.497916667,1.75,Golden King Buttery Golden Potatoes 2Kg,2,Potatoes
+Chips - frozen or not frozen,2.7995,2.75,Tesco Finest Chunky Chips 449G,0.449,Chips - potato
+Crisps and potato snacks,4.319,3.25,Walkers Ready Salted Crisps 12 X 25G,0.3,Crisps - potato
+Fresh cauliflower,0.628,1,Tesco Cauliflower Florets 240G,0.24,Cauliflower
+Leafy salads fresh,1.085333333,2,Tesco Caesar Salad Kit 250G,0.25,Lettuce
+Fresh beans,0.179,1.25,Tesco Green Beans 80G,0.08,Fresh green beans
+Fresh carrots,0.505,1,Tesco Chantenay Carrots 500G,0.5,Carrots
+"Fresh onions, leeks and shallots",0.2475,0.75,Tesco Red Organic Onions 500G,0.5,Onion
+Fresh cucumbers,1.8575,0.95,Tesco Whole Large Cucumber,,Fresh cucumber
+Fresh mushrooms,0.27,1.1,Chestnut Mushrooms 250G,0.25,Mushrooms
+Fresh tomatoes,1.5425,2,Tesco Finest Tomatoes On The Vine 450G,0.45,Tomatoes
+"Tomatoes, canned or bottled",4.614,0.35,Grower's Harvest Chopped Tomatoes 400G,0.4,"Chopped Tomatoes, Aluminium Tin"
+Beans canned,2.368,1,Branston Beans In Tomato Sauce 410G,0.41,Baked beans
+Fresh oranges,0.2965,2,Jaffa Oranges Minimum 4 Pack,,Orange
+Other fresh citrus fruits,0.3595,1.6,Jaffa Seedless Lemons Minimum 4Pack,,Lemons
+Fresh apples,0.318333333,3.85,Large Pink Lady Apples Class 1 Loose,1,Apples
+Fresh bananas,0.5915,1.01,Bananas Loose,1,Bananas
+"Nuts, edible seeds and peanut butter",0.398,3.4,Tesco Mixed Nuts 250G,0.25,Nuts
+Pure fruit juices (g),1.043,4.1,Innocent Orange Juice Smooth 1.35L,1.35,Orange juice
+"White bread, standard, sliced",0.837,1.39,Hovis Soft White Medium Bread 800G,0.8,Bread
+"Wholemeal and granary bread, sliced and unsliced",0.626,1,Warburtons Wholemeal Medium Bread 400G,0.4,"Bread, wholemeal or integral bread (made with flour type 150)"
+Other breads,0.729333333,2.1,Tesco 4 Homebake Baguettes 600G,0.6,"Bread, French bread, baguette"
+Cakes and pastries,,3,Tesco Finest Chocolate Cake,,
+Breakfast cereals,,3.5,Weetabix Crispy Minis Chocolate Chip Cereal 500G,0.5,
+Rice,2.132,3,Tilda Basmati Rice 500G,0.5,"Basmati rice, raw"
+Pasta,,0.75,Tesco Fusilli Pasta 500G,0.5,
+Pizza,,4.75,Tesco Finest Buffalo Mozzarella & Tomato Pizza 420G,0.42,
+Tea,,1.7,Pg Tips 40S Pyramid Teabags 116G,0.116,
+Instant coffee,16.94833333,6,Nescafe Azera Craft Coffee Perky Blenders 75G,0.075,Coffee
+Mineral or spring waters,0.267,0.85,Buxton Still Water 1.5Ltr,1.5,"Water, mineral, carbonated ou non-carbonated, CAROLA"
+Soups - canned or cartons,,1.7,Heinz Cream Of Tomato Soup 400,0.4,
+Spreads and dressings,,2.3,Pizza Express House Light Salad Dressing 235Ml,0.235,
+Pickles and sauces,4.09,3.9,Heinz Top Down Squeezy Tomato Ketchup Sauce 700G,0.7,Tomato Ketchup
+Ice cream tub or block,5.031,5.15,Ben & Jerry's Cookie Dough Vanilla Ice Cream 465Ml,0.465,"Ice Cream, PP Tub with LDPE Lid"
+"Soft drinks, not concentrated,  not low calorie",0.538,2.4,Coca-Cola Coke 1.75L,1.75,"Soft drink, carbonated, pop"
+"Soft drinks, not concentrated, low calorie",0.538,1.99,Diet Coke 2L,2,"Soft drink, carbonated, pop"
+Chocolate bars - solid,17.556,2,Cadbury Dairy Milk Chocolate 180G,0.18,Milk chocolate bar
+Chocolate bars - filled,17.556,1.35,Cadbury Dairy Milk Caramel Chocolate Bar 120G,0.12,"Milk chocolate, filled"
+Boiled sweets,,1.1,Tesco Sweet Shop Mint Humbugs 200G,,
+Beers,1.061,6.5,Peroni Nastro Azzurro Lager Beer 4X330ml,1.32,Beer
+Ciders and perry,,2.35,Cranes Cider Raspberry & Pomegranate 500Ml,0.5,
+Wine and champagne,1.109,9,Dark Horse Cabernet Sauvignon 75Cl,0.75,"Wine, red"

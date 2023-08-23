@@ -130,15 +130,14 @@ def add_receipt(transaction_id):
         for item in request.form.items():
             if item[0].startswith('i') and item[0][-1] != 'd':
                 items_dict[item[1]] = f"[{request.form['w' + item[0][1:]] or 'None'}, {int(float(request.form['p' + item[0][1:]]) * 100)}]"
-        print(items_dict)
-        return '', 200
-        # receipt = Receipt(
-        #     transaction_id=transaction_id,
-        #     items=items_dict
-        # )
-        # db.session.add(receipt)
-        # db.session.commit()
-        # return redirect(url_for('get_co2e_estimate', transaction_id=transaction_id))
+
+        receipt = Receipt(
+            transaction_id=transaction_id,
+            items=items_dict
+        )
+        db.session.add(receipt)
+        db.session.commit()
+        return redirect(url_for('get_co2e_estimate', transaction_id=transaction_id))
 
     transaction = Transaction.query.get(transaction_id)
     if transaction:
@@ -166,6 +165,7 @@ def post_receipt(transaction_id):
 
     # Asprise supports JPEG, PNG, TIFF, PDF
     if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.tiff') or filename.endswith('.pdf'):
+        print(ast.literal_eval(os.getenv('ASPRISE_API_ENABLED')))
         if ast.literal_eval(os.getenv('ASPRISE_API_ENABLED')):
             r = Asprise.get_receipt_data(img.read(), transaction_id)
         else:

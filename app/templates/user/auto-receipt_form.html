@@ -5,8 +5,8 @@
     {% for item in items.items() %}
     <div class="input-group my-3">
         <input class="form-control" id="i{{ loop.index }}" name="i{{ loop.index }}" placeholder="Item" required="True" type="text" value="{{ item[0] }}">
-        <span for="w${numInputs}" class="input-group-text">kg/L</span>
-        <input class="form-control" id="w${numInputs}" min="0" name="p1" placeholder="" style="max-width: 100px;" type="number" value="" step="0.001">
+        <span for="w${{ loop.index }}" class="input-group-text">kg/L</span>
+        <input class="form-control" id="w${{ loop.index }}" min="0" name="w{{ loop.index }}" placeholder="" style="max-width: 100px;" type="number" value="" step="0.001">
         <span id="label1" for="p{{ loop.index }}" class="input-group-text">£</span>
         <input class="form-control" id="p{{ loop.index }}" min="0" name="p{{ loop.index }}" placeholder="0.00" required="True" step="0.01" style="max-width: 100px;" type="number" value="{{ item[1] }}">
     </div>

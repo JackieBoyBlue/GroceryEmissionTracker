@@ -70,7 +70,7 @@ def test(model):
                 insufficient_data.append(line)
         
     # [print(result) for result in results]
-    print()
+    # print()
     print(f'Total:              {total_correct}/{len(results)}')
     print(f'Accuracy:           {round(total_correct / len(results), 2)}')
     print(f'Calculated CO2e:    {round(calculated_co2e, 2)}kg')
@@ -78,12 +78,13 @@ def test(model):
     print(f'Difference:         {round(calculated_co2e - estimated_co2e, 2)}kg')
     print(f'Error:              {round((calculated_co2e - estimated_co2e) / calculated_co2e, 2)}')
     print(f'Total spent:        £{total_spent}')
+    print(f'Est. emission rate: {round(estimated_co2e / total_spent)} per £')
     print()
     print('Confusion matrix (true positive, false negative, false positive):')
     [print(item) for item in confusion_matrix.items()]
     print()
-    print('\nCorrect items:')
-    [print(item[0]) for item in correct_items]
+    # print('\nCorrect items:')
+    # [print(item[0]) for item in correct_items]
     print('\nIncorrect items:')
     [print(f'{item[0]}\n{Fore.RED + item[1] + Fore.RESET}') for item in incorrect_items]
     print('\nInsufficient data:')

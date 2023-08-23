@@ -1,4 +1,4 @@
-FOOD,KG C02e PER KG PRODUCE,£,ITEM,WEIGHT(kg),CATEGORY
+FOOD (Defra),KG C02e PER KG PRODUCE (WRAP),£ (Tesco),ITEM (Tesco),"WEIGHT(kg, Tesco)",ITEM DESCRIPTION (WRAP)
 Semi-skimmed milk,1.7035,0.9,Tesco Semi Skimmed Milk 568Ml/1 Pint,0.568,Milk
 Yoghurt,1.4695,1.95,Onken Mango & Passion Fruit Yogurt 450G,0.45,Yoghurt
 Natural cheese,5.462,2.75,Tesco Grated Mozzarella & Cheese Mix 200G,0.2,"Mozzarella cheese, from cow's milk"

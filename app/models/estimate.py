@@ -71,8 +71,6 @@ class Estimate(db.Model):
                 self.method = 'item'
                 categories = Grocery_Item.query.all()
                 category_tuples = [(category.name, category.vector) for category in categories]
-
-                total_spent = 0
                 
                 # Put items with no weight provided into a separate dict.
                 for item in list(items.items()):
@@ -90,17 +88,15 @@ class Estimate(db.Model):
 
                     item_emissions[item] = weight * float(Grocery_Item.query.get(best_match[0]).factor)
 
-                    total_spent += price
-
                 self.co2e = sum(item_emissions.values())
 
         # Use previous estimates and merchant category to estimate the transaction, or remaining items with no weight provided.
-        if Merchant.query.get(self._transaction.merchant_id):
+        if Merchant.query.get(self._transaction.merchant_id) and (not self.method or len(no_weight_items) != 0):
             
             # First, try to base an estimate on previous user transactions with this merchant.
             try:
                 if 'merchant' in active_methods:
-                    if len(no_weight_items) != 0: self.method += '/merchant'
+                    if len(no_weight_items) > 0: self.method = 'item/merchant'
                     else: self.method = 'merchant'
                     merchant_transactions = Transaction.query.filter_by(merchant_id=self._transaction.merchant_id).all()
                     if merchant_transactions:
@@ -117,7 +113,7 @@ class Estimate(db.Model):
 
                         merchant_emission_factor =  total_co2e / total_amount_pence
 
-                        if len(no_weight_items) != 0:
+                        if len(no_weight_items) > 0:
                             for item, weightprice in no_weight_items.items():
                                 price = literal_eval(weightprice)[1]
                                 item_emissions[item] = price * merchant_emission_factor
@@ -131,7 +127,7 @@ class Estimate(db.Model):
             except:
                 if 'mcc' in active_methods:
 
-                    if len(no_weight_items) != 0: self.method += '/mcc'
+                    if len(no_weight_items) > 0: self.method = 'item/mcc'
                     else: self.method = 'mcc'
 
                     mcc = Merchant.query.get(self._transaction.merchant_id).mcc
@@ -169,8 +165,7 @@ class Estimate(db.Model):
                             self.co2e = MCC_emission_factor * (self._transaction.amount_pence / 100)
         
         if self.method and self.co2e:
-            transaction = Transaction.query.get(self.transaction_id)
-            transaction.co2e = self.co2e
+            self.co2e = round(self.co2e, 5)
             db.session.add(self)
             db.session.commit()
         else:

@@ -33,6 +33,21 @@
                     <span for="p1" class="input-group-text">£</span>
                     {{ receipt_form.price(id="p1", class="form-control", placeholder="0.00", style="max-width: 100px;", required=True, type="number", min=0.00, step=0.01) }}
                 </div>
+                {% if receipt_form.item.error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ receipt_form.item.errors[0] }}
+                    </div>
+                {% endif %}
+                {% if receipt_form.weight.error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ receipt_form.weight.errors[0] }}
+                    </div>
+                {% endif %}
+                {% if receipt_form.price.error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ receipt_form.price.errors[0] }}
+                    </div>
+                {% endif %}
     
                 <div id="extra-inputs"></div>
     
