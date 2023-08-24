@@ -4,6 +4,7 @@
 Almond drink,1.042
 Almond milk,0.42
 Almonds,1.74
+"American bass, raw",11.901
 Anglerfish,11.611
 "Apple juice, pure juice",0.4
 Apples,0.318333333
@@ -12,8 +13,10 @@ Apricot,0.43
 Artichokes,0.9955
 "Asiago cheese, from cow's milk",6.229
 Asparagus,3.87392
+"Atlantic bass, raw",11.901
 "Atlantic chub mackerel, raw",2.231
 "Atlantic halibut, raw",4.209
+"Atlantic herring, lean, oily, raw",2.285
 "Auvergne blue cheese, from cow's milk",5.462
 Avocados,1.4575
 Bacon,10.3015
@@ -54,6 +57,8 @@ Berries,1.19
 "Blueberry, raw",1.333
 "Bogue, raw",1.477
 "Bonito, raw",8.459
+"Brain, lamb, raw",25.892
+"Brain, pork, raw",1.862
 Bran grain bread,0.595
 "Bread, white, sliced, unsliced",0.837
 "Bread brown, French bread (baguette or ball), with flour type 80 or 110",0.663
@@ -94,13 +99,17 @@ Cassava and Other Roots,0.948
 Cauliflower,0.628
 "Causses blue cheese, from cow's milk",5.462
 Celery,0.18
+"Chabichou cheese, from goat's milk",6.665
 "Chaource cheese, from cow's milk",5.462
 "Cheddar cheese, from cow's milk",6.229
 Cheese,8.86
+"Cheese, buche, from goat's milk",6.665
+"Cheese, dry, from goat's milk",8.644
 "Cheese, from goat's milk",6.665
 "Cheese, semi-dry, from goat's milk",8.644
 Cherries,0.48
 Chestnuts,0.43
+"Chevrot cheese, from goat's milk",6.665
 Chick peas,0.67
 Chicken,5.4468125
 Chips - potato,2.7995
@@ -130,6 +139,7 @@ Cranberries/blueberries,0.92
 Cream,4.034
 "Crevalle jack, raw",4.209
 Crisps - potato,4.319
+"Crottin de Chavignol cheese, from goat's milk",6.665
 Crustaceans (farmed),18.681
 "Cured ham, raw",12.612
 Currants and gooseberries,0.84
@@ -151,6 +161,7 @@ Eel,3.88
 Eggplants (aubergines),1.35
 Eggs,3.222166667
 "Emmental cheese, from cow's milk",6.229
+"European bass, raw",11.901
 "European hake, raw",6.824
 "European perch, raw",4.828
 "European pilchard or sardine, raw",1.905
@@ -164,8 +175,21 @@ Figs,0.43
 "Fontina cheese, from cow's milk",5.462
 "Fourme d'Ambert cheese, from cow's milk",5.462
 Fourme de Montbrison cheese,5.462
-Fresh green beans,0.179
 Fresh aubergines (heated greenhouse production),2.8905
+Fresh Beetroot,-0.7365
+Fresh broccoli (field production),0.614
+Fresh brussels sprouts,0.548
+Fresh cabbage,0.38
+Fresh celery,0.492
+Fresh courgette,0.4595
+Fresh cucumber,1.8575
+Fresh green beans,0.179
+Fresh green peas shelled,0.666
+Fresh green peas unshelled (consumed raw),0.283
+Fresh onions ,0.721
+Fresh Pepper,1.7525
+Fresh spinach,0.3845
+Fresh sweet corn on the cob,0.5755
 Fresh winter squash,0.54
 "Freshwater bream, raw",11.901
 "Frik (crushed immature durum wheat), raw",1.292
@@ -189,6 +213,7 @@ Gherkins,1.695
 Ginger,0.88
 Gingerbread,1.296
 "Gizzard, chicken, raw",1.529
+Goat cheese from raw milk,6.665
 Goat milk,1.616
 "Golden redfish, raw",10.932
 "Goose egg, raw",2.283
@@ -214,6 +239,10 @@ Hake,8.98
 "Hard cheese, emmental-type cheese, reduced fat",6.229
 Hazelnut oil,4.684
 Hazelnuts,0.97
+"Heart, beef, raw",26.773
+"Heart, chicken, raw",1.529
+"Heart, lamb, raw",25.892
+"Heart, pork, raw",1.862
 Herring,1.17
 Herring oil,1.535
 "Horse mackerel, raw",2.231
@@ -221,6 +250,9 @@ Herring oil,1.535
 "John dory, raw",10.932
 Kangaroo,4.1
 Khorasan wheat,0.313
+"Kidney, beef, raw",26.773
+"Kidney, lamb, raw",25.892
+"Kidney, pork, raw",1.862
 Kiwi fruit,0.5725
 Lamb,40.06109091
 Lamb UK British,25.84
@@ -256,10 +288,17 @@ Mandarin,0.425
 Marsala wine,1.109
 "Mayonnaise, Glass Jar with Aluminium Lid",2.941
 "Meat-Free Burgers, Cardboard Box with PE Wax",4.212
+"Mediterranean bass, raw",10.5035
 Megrim,12.541
 Melons,1.125
 Milk,1.7035
 Milk chocolate bar,17.556
+"Milk chocolate bar, filled with praline",17.556
+"Milk chocolate bar, with dried fruits (nuts, almonds, raisins, praline)",17.556
+"Milk chocolate bar, with puffed/popped cereals",17.556
+"Milk chocolate bar, without sugar, with sweeteners",17.556
+"Milk chocolate, filled",17.556
+"Milk Chocolate, PP Wrapping",2.825
 "Mimolette cheese, extra old, from cow's milk",6.229
 Mixed fruits juice,0.767
 "Morbier cheese, from cow's milk",6.229
@@ -287,6 +326,7 @@ Orange juice,1.043
 "Ossau-Iraty cheese, from ewe's milk",8.149
 Other Fruit,0.74
 Other Vegetables,0.445
+"P‚lardon cheese, from goat's milk",6.665
 Palm oil,5.953
 Panini bread,1.079
 Parma dry-cured ham,15.765
@@ -302,6 +342,7 @@ Pickled cabbage,2.2105
 Pickled cucumber/gherkins,3.7545
 Pickled onions ,2.3725
 Pickled Pepper,3.5095
+"Picodon cheese, from goat's milk",6.665
 Pig Meat,10.369
 Pilchard,1.1
 Pineapples,0.484
@@ -317,6 +358,7 @@ Pomfret,6.63
 Porbeagle,11.44
 Pork,6.503338236
 Potatoes,0.497916667
+"Pouligny Saint-Pierre cheese, from goat's milk",6.665
 Poultry Meat,8.17
 "Pouting, raw",10.932
 "Prawns, shrimp",15.65033333
@@ -344,6 +386,7 @@ Raspberries,0.978333333
 Rhombus,8.41
 Rice,2.696333333
 "Rice-based drink, plain",1.042
+"Rocamadour cheese, from goat's milk",6.665
 Rock fish,6.94
 Rockmelon/cantelope,0.25
 Root Vegetables,0.326
@@ -351,6 +394,7 @@ Root Vegetables,0.326
 "Roundnose grenadier, raw",10.932
 Rye,0.41
 "Rye bread, and wheat",0.844
+"Sainte Maure cheese, from goat's milk",6.665
 "Saint-Felicien cheese, from cow's milk",5.462
 "Saint-Marcellin cheese, from cow's milk",5.462
 "Saint-Nectaire cheese, from cow's milk",6.229
@@ -367,6 +411,7 @@ Salmon oil,1.535
 Sardine oil,1.535
 Sea bass,3.55
 "Sea trout, raw",5.669
+"Selles-sur-Cher cheese, from goat's milk",6.665
 "Semi-hard cheese, from ewe's milk",8.149
 Serrano dry-cured ham,15.765
 Sesame oil,2.007
@@ -419,6 +464,8 @@ Tomatoes,1.5425
 "Tomatoes - bottled, passate/puree",2.037
 "Tomatoes - canned, in juice",1.79
 Tomme cheese,5.462
+"Tongue, beef, raw",26.773
+"Tongue, pork, raw",1.862
 "Tonguesole, raw",6.751
 "Tripe, beef, raw",33.467
 Trout,5.820333333
@@ -429,6 +476,7 @@ Turkey,8.995
 "Turkey egg, raw",2.03
 "Uncured soft cheese, spreadable",5.462
 "Vacherin cheese or Mont d'or cheese, from cow's milk",5.462
+"Valen‡ay cheese, from goat's milk",6.665
 Walnuts,1.62
 "Water, mineral, carbonated ou non-carbonated, CAROLA",0.267
 Watermelons,0.32

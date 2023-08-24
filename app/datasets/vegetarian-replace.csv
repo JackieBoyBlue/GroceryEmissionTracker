@@ -38,7 +38,7 @@ Fresh apples,0.318333333,3.85,Large Pink Lady Apples Class 1 Loose,1,Apples
 Fresh bananas,0.5915,1.01,Bananas Loose,1,Bananas
 "Nuts, edible seeds and peanut butter",0.398,3.4,Tesco Mixed Nuts 250G,0.25,Nuts
 Pure fruit juices (g),1.043,4.1,Innocent Orange Juice Smooth 1.35L,1.35,Orange juice
-"White bread, standard, sliced",0.837,1.39,Hovis Soft White Medium Bread 800G,0.8,Bread
+"White bread, standard, sliced",0.837,1.39,Hovis Soft White Medium Bread 800G,0.8,"Bread, white, sliced, unsliced"
 "Wholemeal and granary bread, sliced and unsliced",0.626,1,Warburtons Wholemeal Medium Bread 400G,0.4,"Bread, wholemeal or integral bread (made with flour type 150)"
 Other breads,0.729333333,2.1,Tesco 4 Homebake Baguettes 600G,0.6,"Bread, French bread, baguette"
 Cakes and pastries,,3,Tesco Finest Chocolate Cake,,
@@ -56,7 +56,7 @@ Ice cream tub or block,5.031,5.15,Ben & Jerry's Cookie Dough Vanilla Ice Cream 4
 "Soft drinks, not concentrated,  not low calorie",0.538,2.4,Coca-Cola Coke 1.75L,1.75,"Soft drink, carbonated, pop"
 "Soft drinks, not concentrated, low calorie",0.538,1.99,Diet Coke 2L,2,"Soft drink, carbonated, pop"
 Chocolate bars - solid,17.556,2,Cadbury Dairy Milk Chocolate 180G,0.18,Milk chocolate bar
-Chocolate bars - filled,17.556,1.35,Cadbury Dairy Milk Caramel Chocolate Bar 120G,0.12,"Milk chocolate, filled"
+Chocolate bars - filled,17.556,1.35,Cadbury Dairy Milk Caramel Chocolate Bar 120G,0.12,Milk chocolate bar
 Boiled sweets,,1.1,Tesco Sweet Shop Mint Humbugs 200G,,
 Beers,1.061,6.5,Peroni Nastro Azzurro Lager Beer 4X330ml,1.32,Beer
 Ciders and perry,,2.35,Cranes Cider Raspberry & Pomegranate 500Ml,0.5,

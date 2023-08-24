@@ -20,7 +20,7 @@ class GTR_T5(EmbeddingModelInterface):
         if version not in self.versions: raise ValueError(f'version must be one of {self.versions}')
 
         print('Initialising GTR T5...')
-        self.model = SentenceTransformer(f'sentence-transformers/gtr-t5-{version}', device='cuda' if torch.cuda.is_available() else 'cpu')
+        self.model = SentenceTransformer(f'sentence-transformers/gtr-t5-{version}')
         print('Loaded model')
 
 

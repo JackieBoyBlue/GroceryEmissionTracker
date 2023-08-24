@@ -20,7 +20,7 @@ class Instructor(EmbeddingModelInterface):
         if version not in Instructor.versions: raise ValueError(f'version must be one of {Instructor.versions}')
 
         print(f'Loading Instructor-{version}...')
-        self.model = INSTRUCTOR(f'hkunlp/instructor-{version}', device='cuda' if torch.cuda.is_available() else 'cpu')
+        self.model = INSTRUCTOR(f'hkunlp/instructor-{version}')
         print('Loaded model')
     
 
@@ -39,29 +39,6 @@ class Instructor(EmbeddingModelInterface):
 
 
 if __name__ == '__main__':
-    import pathlib, csv, ast
-    from colorama import Fore
-
-    Embedder = Instructor()
-
-    emission_factor_path = pathlib.Path(__file__).parent.parent.parent / 'datasets/category_emission_factors.py'
-
-    with open(emission_factor_path, 'r') as f:
-        emission_factors = ast.literal_eval(f.read()[28:])
-
-    emission_factor_vectors = {emission_factor: Embedder.get_embeddings(emission_factor)[0] for emission_factor in emission_factors.keys()}
-    # print(emission_factor_vectors['Meat and meat products (excl. poultry)'])
-
-    csv_path = pathlib.Path(__file__).parent.parent.parent / 'datasets/foodItems-categories-pricesPerKg.csv'
-
-    results = []
-    total_correct = 0
-
-    confusion_matrix = {}
-    correct_items = []
-    incorrect_items = []
-
-    with open(csv_path, 'r') as f:
-        from test import test
-        test(Instructor)
+    from test import test
+    test(Instructor)
     
