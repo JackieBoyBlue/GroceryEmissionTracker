@@ -12,7 +12,7 @@ class User(UserMixin, db.Model):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid4()))
     name = Column(String(50), nullable=False)
     email = Column(String(320), nullable=False)
-    hashed_password = Column(String(120), nullable=False)
+    _hashed_password = Column(String(120), nullable=False)
     admin = Column(Boolean, default=False, nullable=False)
 
     starling_uid = Column(String(36), nullable=True)
@@ -23,18 +23,18 @@ class User(UserMixin, db.Model):
     transactions = db.relationship('Transaction', backref='user', lazy='dynamic', cascade='all, delete')
 
     @property
-    def password(self):
+    def _password(self):
         """Raises an error if the password is accessed."""
         raise AttributeError('Password is not readable.')
 
-    @password.setter
-    def password(self, password):
+    @_password.setter
+    def _password(self, _password):
         """Generates a hash of the user's password and updates the instance."""
-        self.hashed_password = generate_password_hash(password)
+        self._hashed_password = generate_password_hash(_password)
     
-    def verify_password(self, password):
+    def verify_password(self, _password):
         """Verifies the user's password against the hash stored in the instance."""
-        return check_password_hash(self.hashed_password, password)
+        return check_password_hash(self._hashed_password, _password)
     
     def __repr__(self) -> String:
         """Returns a string representation of the user in key-item pairs."""
