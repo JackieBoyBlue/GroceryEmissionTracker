@@ -167,6 +167,8 @@ class Estimate(db.Model):
         if self.method and self.co2e:
             self.co2e = round(self.co2e, 5)
             db.session.add(self)
+            transaction = Transaction.query.get(self.transaction_id)
+            transaction.co2e = self.co2e
             db.session.commit()
         else:
             return 'Could not produce an estimate.'
