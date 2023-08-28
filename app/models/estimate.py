@@ -13,7 +13,7 @@ if literal_eval(os.getenv('ESTIMATE_BY_MERCHANT', False)): active_methods.append
 if literal_eval(os.getenv('ESTIMATE_BY_MCC', True)): active_methods.append('mcc')
 
 
-class Grocery_Item(db.Model):
+class GroceryItem(db.Model):
     __tablename__ = 'category'
 
     name = Column(String, primary_key=True)
