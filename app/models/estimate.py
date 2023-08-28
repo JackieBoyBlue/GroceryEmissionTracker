@@ -69,7 +69,7 @@ class Estimate(db.Model):
             # Look up item specific CO2e.
             if 'item' in active_methods:
                 self.method = 'item'
-                categories = Grocery_Item.query.all()
+                categories = GroceryItem.query.all()
                 category_tuples = [(category.name, category.vector) for category in categories]
                 
                 # Put items with no weight provided into a separate dict.
@@ -86,7 +86,7 @@ class Estimate(db.Model):
                     item_embedding = Embedder.get_embeddings(item)[0]
                     best_match = Embedder.get_item_from_vectors(item_embedding, *category_tuples)
 
-                    item_emissions[item] = weight * float(Grocery_Item.query.get(best_match[0]).factor)
+                    item_emissions[item] = weight * float(GroceryItem.query.get(best_match[0]).factor)
 
                 self.co2e = sum(item_emissions.values())
 
