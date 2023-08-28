@@ -98,78 +98,97 @@ def test(model):
 
             # F-Measure = (2 * Precision * Recall) / (Precision + Recall)
             f1 = (2 * precision * recall) / (precision + recall)
+
             
+            macro_average_precision = 0
+            macro_average_recall = 0
+            macro_average_f1 = 0
+            for row in range(n_classifications):
+                if sum(confusion_matrix[row]) == 0 and sum([confusion_matrix[column][row] for column in range(n_classifications)]) == 0:
+                    continue
+                true_positives = confusion_matrix[row][row]
+                false_positives = sum(confusion_matrix[row]) - true_positives
+                false_negatives = sum([confusion_matrix[column][row] for column in range(n_classifications)]) - true_positives
+                kprecision = true_positives / (true_positives + false_positives) if true_positives + false_positives != 0 else 0
+                krecall = true_positives / (true_positives + false_negatives) if true_positives + false_negatives != 0 else 0
+                kf1 = (2 * kprecision * krecall) / (kprecision + krecall) if kprecision + krecall != 0 else 0
+                macro_average_precision += kprecision
+                macro_average_recall += krecall
+                macro_average_f1 += kf1
+            macro_average_precision /= n_classifications
+            macro_average_recall /= n_classifications
+            macro_average_f1 /= n_classifications
 
-            # USER-MERCHANT HISTORY ESTIMATION TEST
-            print('Starting user-merchant test...')
-            transactions = {}
+            # # USER-MERCHANT HISTORY ESTIMATION TEST
+            # print('Starting user-merchant test...')
+            # transactions = {}
 
-            # Produce 20 baskets of random items
-            for n in range(1, 51):
-                transactions[n] = []
-                for line in food_items[1:]:
-                    if all(line) and len(line) == 6:
-                        if random.random() < 0.25:
-                            transactions[n].append(line)
+            # # Produce 20 baskets of random items
+            # for n in range(1, 51):
+            #     transactions[n] = []
+            #     for line in food_items[1:]:
+            #         if all(line) and len(line) == 6:
+            #             if random.random() < 0.25:
+            #                 transactions[n].append(line)
             
-            # Remove half to test.
-            new_transactions = {}
-            for n in range(1, 26):
-                new_transactions[n] = transactions.pop(n)
-            # The other half acts as a transaction history
-            transaction_history = transactions
+            # # Remove half to test.
+            # new_transactions = {}
+            # for n in range(1, 26):
+            #     new_transactions[n] = transactions.pop(n)
+            # # The other half acts as a transaction history
+            # transaction_history = transactions
 
-            # Iterate through the transaction history and get the estimate and cost for each
-            estimate_history = {}
-            for basket in transaction_history.items():
-                # Half a chance of embedding estimation
-                if random.random() < 0.5:
-                    estimate = 0
-                    cost = 0
-                    for item in basket[1]:
-                            item_embedding = model.get_embeddings(item[3])[0]
-                            best_match = model.get_item_from_vectors(item_embedding, *emission_factor_vectors.items())
-                            factor = float(emission_factors[best_match[0]])
-                            estimate += float(item[4]) * factor
-                            cost += float(item[2])
-                    estimate_history[basket[0]] = (estimate, cost)
-                # Half chance of MCC estimation
-                else:
-                    cost = sum([float(item[2]) for item in basket[1]])
-                    estimate = cost * category_emission_factor
-                    estimate_history[basket[0]] = (estimate, cost)
+            # # Iterate through the transaction history and get the estimate and cost for each
+            # estimate_history = {}
+            # for basket in transaction_history.items():
+            #     # Half a chance of embedding estimation
+            #     if random.random() < 0.5:
+            #         estimate = 0
+            #         cost = 0
+            #         for item in basket[1]:
+            #                 item_embedding = model.get_embeddings(item[3])[0]
+            #                 best_match = model.get_item_from_vectors(item_embedding, *emission_factor_vectors.items())
+            #                 factor = float(emission_factors[best_match[0]])
+            #                 estimate += float(item[4]) * factor
+            #                 cost += float(item[2])
+            #         estimate_history[basket[0]] = (estimate, cost)
+            #     # Half chance of MCC estimation
+            #     else:
+            #         cost = sum([float(item[2]) for item in basket[1]])
+            #         estimate = cost * category_emission_factor
+            #         estimate_history[basket[0]] = (estimate, cost)
             
-            # Get the average historic emission factor in CO2e/£ spent
-            historic_emissions = sum(value[0] for value in estimate_history.values())
-            historic_cost = sum(value[1] for value in estimate_history.values())
-            user_merchant_factor = historic_emissions / historic_cost
+            # # Get the average historic emission factor in CO2e/£ spent
+            # historic_emissions = sum(value[0] for value in estimate_history.values())
+            # historic_cost = sum(value[1] for value in estimate_history.values())
+            # user_merchant_factor = historic_emissions / historic_cost
 
-            # Get the estimated and actual co2e for the target baskets
-            basket_est_and_act = []
+            # # Get the estimated and actual co2e for the target baskets
+            # basket_est_and_act = []
 
-            for new_transaction in new_transactions.values():
-                target_basket_cost = 0
-                target_basket_co2e = 0
-                for item in new_transaction:
-                    target_basket_cost += float(item[2])
-                    target_basket_co2e += float(item[1]) * float(item[4])
-                basket_est_and_act.append((target_basket_cost * user_merchant_factor, target_basket_co2e))
+            # for new_transaction in new_transactions.values():
+            #     target_basket_cost = 0
+            #     target_basket_co2e = 0
+            #     for item in new_transaction:
+            #         target_basket_cost += float(item[2])
+            #         target_basket_co2e += float(item[1]) * float(item[4])
+            #     basket_est_and_act.append((target_basket_cost * user_merchant_factor, target_basket_co2e))
             
-            # Get the average estimate and 
-            user_merchant_estimate = sum([estimate[0] for estimate in basket_est_and_act]) / len(basket_est_and_act)
-            average_basket_co2e = sum([estimate[1] for estimate in basket_est_and_act]) / len(basket_est_and_act)
+            # # Get the average estimate and 
+            # user_merchant_estimate = sum([estimate[0] for estimate in basket_est_and_act]) / len(basket_est_and_act)
+            # average_basket_co2e = sum([estimate[1] for estimate in basket_est_and_act]) / len(basket_est_and_act)
 
 
-            # MCC ESTIMATION TEST
-            print('Starting MCC test...')
-            # mcc_estimate = round(target_basket_cost * category_emission_factor, 5)
-            mcc_estimates = []
-            for new_transaction in new_transactions.values():
-                target_basket_cost = 0
-                for item in new_transaction:
-                    target_basket_cost += float(item[2])
-                mcc_estimates.append(target_basket_cost * category_emission_factor)
-            mcc_estimate = sum(mcc_estimates) / len(mcc_estimates)
+            # # MCC ESTIMATION TEST
+            # print('Starting MCC test...')
+            # # mcc_estimate = round(target_basket_cost * category_emission_factor, 5)
+            # mcc_estimates = []
+            # for new_transaction in new_transactions.values():
+            #     target_basket_cost = 0
+            #     for item in new_transaction:
+            #         target_basket_cost += float(item[2])
+            #     mcc_estimates.append(target_basket_cost * category_emission_factor)
+            # mcc_estimate = sum(mcc_estimates) / len(mcc_estimates)
                 
             
         print('\nResults:\n')
@@ -184,42 +203,47 @@ def test(model):
         print(f'Precision:          {round(precision, 2)}')
         print(f'Recall:             {round(recall, 2)}')
         print(f'F1:                 {round(f1, 2)}')
-
-        print('\n~~~User-Merchant History~~~')
-        print(f'Target CO2e:        {round(average_basket_co2e, 2)}kg')
-        print(f'User-Merchant est.: {round(user_merchant_estimate, 2)}kg')
-        print(f'Difference:         {round(user_merchant_estimate - average_basket_co2e, 2)}kg')
-        print(f'Error:              {round((user_merchant_estimate / average_basket_co2e) -1, 2)}')
-
-        print('\n~~~         MCC         ~~~')
-        print(f'Target CO2e:        {round(average_basket_co2e, 2)}kg')
-        print(f'MCC rate est.:      {round(mcc_estimate, 2)}kg')
-        print(f'Difference:         {round(mcc_estimate - average_basket_co2e, 2)}kg')
-        print(f'Error:              {round((mcc_estimate / average_basket_co2e) -1, 2)}')
+        # print(f'Macro-avg prec.:    {round(macro_average_precision, 2)}')
+        # print(f'Macro-avg recall:   {round(macro_average_recall, 2)}')
+        print(f'Macro-avg F1:       {round(macro_average_f1, 2)}')
         print('\nEnd of test.\n\n')
 
+        # print('\n~~~User-Merchant History~~~')
+        # print(f'Target CO2e:        {round(average_basket_co2e, 2)}kg')
+        # print(f'User-Merchant est.: {round(user_merchant_estimate, 2)}kg')
+        # print(f'Difference:         {round(user_merchant_estimate - average_basket_co2e, 2)}kg')
+        # print(f'Error:              {round((user_merchant_estimate / average_basket_co2e) -1, 2)}')
+
+        # print('\n~~~         MCC         ~~~')
+        # print(f'Target CO2e:        {round(average_basket_co2e, 2)}kg')
+        # print(f'MCC rate est.:      {round(mcc_estimate, 2)}kg')
+        # print(f'Difference:         {round(mcc_estimate - average_basket_co2e, 2)}kg')
+        # print(f'Error:              {round((mcc_estimate / average_basket_co2e) -1, 2)}')
+        # print('\nEnd of test.\n\n')
 
 
-    # print(f'Target CO2e:        {round(calculated_co2e, 2)}kg')
-    # print(f'Estimated CO2e:     {round(estimated_co2e, 2)}kg')
-    # print(f'Difference:         {round(calculated_co2e - estimated_co2e, 2)}kg')
-    # print(f'Error:              {round((estimated_co2e - calculated_co2e) / calculated_co2e, 2)}')
-    # print()
-    # print(f'MCC rate est.:      {mcc_estimate}kg')
-    # print(f'Diff. to 1st est.:  {round(mcc_estimate - estimated_co2e, 2)}kg')
-    # print(f'Error:              {round((estimated_co2e - mcc_estimate) / mcc_estimate, 2)}')
-    # print(f'Diff. to calc.:     {round(mcc_estimate - calculated_co2e, 2)}kg')
-    # print(f'Error:              {round((calculated_co2e - mcc_estimate) / mcc_estimate, 2)}')
-    # print(f'')
-    # # print(f'Est. emission rate: {round(estimated_co2e / total_spent, 5)} per £')
-    # print()
-    # print('Confusion matrix (true positive, false negative, false positive):')
-    # [print(item) for item in confusion_matrix.items()]
-    # # print()
-    # # print('\nCorrect items:')
-    # # [print(item[0]) for item in correct_items]
-    # print('\nIncorrect items:')
-    # [print(f'{item[0]}\n{Fore.RED + item[1] + Fore.RESET}') for item in incorrect_items]
-    # # print('\nInsufficient data:')
-    # # [print(item) for item in insufficient_data]
-    # print(f'\nTotal items estimated: {len(correct_items + incorrect_items)} out of {len(food_items[1:])}')
+
+        # print(f'Target CO2e:        {round(calculated_co2e, 2)}kg')
+        # print(f'Estimated CO2e:     {round(estimated_co2e, 2)}kg')
+        # print(f'Difference:         {round(calculated_co2e - estimated_co2e, 2)}kg')
+        # print(f'Error:              {round((estimated_co2e - calculated_co2e) / calculated_co2e, 2)}')
+        # print()
+        # print(f'MCC rate est.:      {mcc_estimate}kg')
+        # print(f'Diff. to 1st est.:  {round(mcc_estimate - estimated_co2e, 2)}kg')
+        # print(f'Error:              {round((estimated_co2e - mcc_estimate) / mcc_estimate, 2)}')
+        # print(f'Diff. to calc.:     {round(mcc_estimate - calculated_co2e, 2)}kg')
+        # print(f'Error:              {round((calculated_co2e - mcc_estimate) / mcc_estimate, 2)}')
+        # print(f'')
+        # # print(f'Est. emission rate: {round(estimated_co2e / total_spent, 5)} per £')
+        # print()
+        # print('Confusion matrix (true positive, false negative, false positive):')
+        # [print(item) for item in confusion_matrix.items()]
+        # # print()
+        # # print('\nCorrect items:')
+        # # [print(item[0]) for item in correct_items]
+        # print('\nIncorrect items:')
+        # [print(f'{item[0]}\n{Fore.RED + item[1] + Fore.RESET}') for item in incorrect_items]
+        # print('\n\n\n')
+        # # print('\nInsufficient data:')
+        # # [print(item) for item in insufficient_data]
+        # print(f'\nTotal items estimated: {len(correct_items + incorrect_items)} out of {len(food_items[1:])}')
