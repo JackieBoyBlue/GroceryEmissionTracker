@@ -97,7 +97,7 @@ class Starling:
         feed_logs = user.feed_logs
         
         if feed_logs.all(): last_pull = feed_logs.order_by(text('datetime desc')).limit(1).first().datetime
-        else: last_pull = datetime.utcnow() - timedelta(days=28)
+        else: last_pull = datetime.utcnow() - timedelta(days=56)
 
         last_pull = last_pull.isoformat(timespec='milliseconds') + 'Z'
 
@@ -116,10 +116,10 @@ class Starling:
         feed_id = str(uuid4())
         count = 0
 
-        # if 'feedItems' not in dict: return None
+        if 'feedItems' not in dict: return None
         for item in dict['feedItems']:
             item_id = item['feedItemUid']
-            if item['spendingCategory'] in acceptable_categories and Transaction.query.get(item_id) == None:
+            if item['spendingCategory'] in acceptable_categories and item['counterPartyType'] == 'MERCHANT' and Transaction.query.get(item_id) == None and item['direction'] == 'OUT' and item['status'] == 'SETTLED':
 
                 # Add the merchant to the DB if it doesn't already exist.
                 if Merchant.query.get(item['counterPartyUid']) == None:
