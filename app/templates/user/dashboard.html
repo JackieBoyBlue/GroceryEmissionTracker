@@ -8,7 +8,7 @@
             <tr class="row">
                 <!-- last 4 weeks -->
                 <td class="col py-4" id="recent">
-                    <span class="big-number">{{ last_four_weeks | round(4) }}</span><span class="big-unit">kg</span>
+                    <span class="big-number">{{ last_four_weeks | round(2) }}</span><span class="big-unit">kg</span>
                 </td>
             </tr>
             <tr class="row">
@@ -24,7 +24,7 @@
                 </td>
                 <!-- all time -->
                 <td class="col" id="all-time">
-                    <span class="mid-number">{{ all_time | round(3) }}</span><span class="mid-unit">kg</span>
+                    <span class="mid-number">{{ all_time | round | int }}</span><span class="mid-unit">kg</span>
                 </td>
             </tr>
         </table>
